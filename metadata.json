@@ -1,0 +1,6 @@
+{
+  "name": "For Anvii",
+  "description": "A handcrafted interactive experience created with care by Prince for Anvii.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
