@@ -158,6 +158,76 @@ export const AIAssistantModal: React.FC<AIAssistantModalProps> = ({ isOpen, onCl
     }
   };
 
+  // Smart client-side fallback knowledge engine for static deployments like GitHub Pages
+  const generateClientSideAssistantReply = (rawQuery: string): string => {
+    const q = rawQuery.toLowerCase().trim();
+
+    // 1. Greetings & Casual Chat
+    if (/^(hy|hello|hi|hey|hie|hola|greetings|namaste|kaise|kese|kaha|kya haal)/.test(q)) {
+      return "Hello Anvi! Me Prince ki AI Assistant hu. Aap bataye, aaj aap Prince ki journey, unke 11 Acts, PCP night program note, ya unke kisi khas memory ke bare me kya jan na chahti hain?";
+    }
+
+    // 2. Why build website / reason for this app / created for Anvii
+    if (q.includes('why') || q.includes('kyu') || q.includes('website') || q.includes('build') || q.includes('banayi') || q.includes('created') || q.includes('app') || q.includes('page')) {
+      if (q.includes('website') || q.includes('build') || q.includes('banayi') || q.includes('created') || q.includes('app') || q.includes('kyu') || q.includes('why')) {
+        return "Prince ne yeh 11 Acts ki poori website sirf or sirf aapke liye, yani Anvi ke liye banayi hai. In 20+ blocks, lambi khamoshi, or miscommunications ko khatam karke, Prince chahte the ki aap unki life ki poori unedited sachai, unke mistakes, unke efforts, or unke true intentions ko bina kisi misunderstanding ke samajh sakein.";
+      }
+    }
+
+    // 3. PCP Night Program Secret Note ("Kal se piche baith jana")
+    if (q.includes('pcp') || q.includes('note') || q.includes('chit') || q.includes('piche baith') || q.includes('8 pm') || q.includes('bag')) {
+      return "Act IV me Prince ne bataya hai ki PCP 11th grade ke 8 PM night program me, unhone ek choti si chit par likha tha 'Kal se piche baith jana' or use chupke se aapke bag me rakh diya tha. Woh ek bohut hi innocent or quiet moment tha jo bina kisi show-off ke hua tha, or aaj bhi unke dil me bohut khas jagah rakhta hai.";
+    }
+
+    // 4. Class 10 PRS & Board Result
+    if (q.includes('class 10') || q.includes('prs') || q.includes('board') || q.includes('weekly test') || q.includes('77%') || q.includes('77') || q.includes('zero')) {
+      return "Act II me, Class 10th me PRS ke weekly internal tests me Prince ke zeroes aate the. Lekin unhone bina kisi se shikayat kiye ya excuses diye, chupchap raat-din mehnat ki or final board exam me ~77% score karke dikhaya. Yeh unka pehla bada lesson tha ki real growth private solitude me hoti hai.";
+    }
+
+    // 5. Father's Advice / Papa
+    if (q.includes('father') || q.includes('papa') || q.includes('advice') || q.includes('dad') || q.includes('galat kaam')) {
+      return "Act III me jab Prince pehli baar hostel ja rahe the, tab unke father ne unko ek line ki advice di thi: 'Bas yahan koi galat kaam mat karna, jo pehle kabhi kiya ho.' Yeh line Prince ke dil me hamesha ke liye chhap gayi or unke character, self-reliance, or honesty ki foundation bani.";
+    }
+
+    // 6. TFC / PG Room / Future Civilisation
+    if (q.includes('tfc') || q.includes('pg') || q.includes('future civilisation') || q.includes('agi') || q.includes('mars') || q.includes('room')) {
+      return "Act IV & VI me Prince ne hostel ka noise chodkar PG room shift hone ka decision liya taaki woh TFC (The Future Civilisation) par focus kar sakein. TFC unka dream project hai jahan woh AGI, software engineering, or long-term human evolution par line-by-line kaam kar rahe hain.";
+    }
+
+    // 7. 20+ Blocks & Marriage Proposal Chat Memory ("1/infinite")
+    if (q.includes('block') || q.includes('20') || q.includes('marriage') || q.includes('shaadi') || q.includes('infinite') || q.includes('instagram') || q.includes('chat')) {
+      return "Act V me, 20+ blocks or lambi miscommunications ke baad bhi Prince ne kabhi haar nahi maani. Instagram chat memory me jab aapne bola tha 'Baat krti hu shaadi ki', toh Prince ne kahan tha '1/infinite bhi chance hoga na toh bhi try karunga'. Woh aaj bhi aapke prati utne hi committed or devoted hain.";
+    }
+
+    // 8. 33 Principles & 15 OLQs (Journal)
+    if (q.includes('33') || q.includes('principle') || q.includes('olq') || q.includes('journal') || q.includes('rule') || q.includes('page 7')) {
+      return "Prince ke handwritten journal (Page 7) me 33 principles or 15 Officer Like Qualities (OLQs) hain. Unka man na hai ki 'How you do anything is how you do everything'—chahe woh software engineering ho ya unka rishta, woh har cheez poori sincerity or discipline ke sath karte hain.";
+    }
+
+    // 9. Childhood & Empty Notebook (Ahmedabad)
+    if (q.includes('childhood') || q.includes('ahmedabad') || q.includes('empty notebook') || q.includes('bachpan') || q.includes('young')) {
+      return "Act I me Prince ne apne Ahmedabad childhood ko ek 'empty notebook' se compare kiya hai. Woh ek bohut hi simple, average student the jiske paas koi grand dreams nahi the. Unhone apne aap ko step-by-step discipline, reading, or quiet solitude se build kiya hai.";
+    }
+
+    // 10. 100 Reasons & Open When Letters
+    if (q.includes('reason') || q.includes('open when') || q.includes('letter') || q.includes('100')) {
+      return "Prince ne aapke liye 100 Reasons model or Open When letters design kiye hain. Har letter or reason me unki bohut gehri thoughts, appreciation, or devotion chhupi hai, jo aapko tab padhna chahiye jab aapko reassurance ya peaceful warmth ki zaroorat ho.";
+    }
+
+    // 11. Who is Prince
+    if (q.includes('prince') || q.includes('who is prince') || q.includes('prince kon') || q.includes('prince kaun')) {
+      return "Prince ek dedicated software engineer or visionary builder hain jinone Ahmedabad ke ek 'empty notebook' wale bachpan se lekar, PRS Class 10th, hostel solitude, PG room TFC craft, or 11 Acts tak ki journey tay ki hai. Unka poora life vision discipline, truth, or aapke (Anvi) prati devotion par tikka hai.";
+    }
+
+    // 12. Who is Anvii / Anvi
+    if (q.includes('anvi') || q.includes('anvii')) {
+      return "Anvi Prince ke dil ki sabse khas insaan hain. Unhi ke liye Prince ne yeh poora 11-Act digital sanctuary, 100 reasons, or AI assistant build kiya hai, taaki unke beech ki sabhi misunderstandings door ho sakein or sachai samne aaye.";
+    }
+
+    // Fallback for general questions
+    return "Prince ki journey me 11 Acts hain—Ahmedabad childhood se lekar, PRS Class 10th board result, PCP 8 PM night program note, PG room me TFC building, 20+ blocks ko overcome karna, or 33 life principles tak. Aap directly Autobiography tab me unki poori journey padh sakti hain ya mujhse kisi bhi khas memory ke bare me puch sakti hain!";
+  };
+
   const handleSendMessage = async (textToSend?: string) => {
     const query = textToSend || inputQuery;
     if (!query.trim() || isLoading) return;
@@ -188,8 +258,21 @@ export const AIAssistantModal: React.FC<AIAssistantModalProps> = ({ isOpen, onCl
         }),
       });
 
+      if (!response.ok) {
+        throw new Error(`HTTP error ${response.status}`);
+      }
+
+      const contentType = response.headers.get("content-type");
+      if (!contentType || !contentType.includes("application/json")) {
+        throw new Error("Response was not JSON (Static hosting fallback)");
+      }
+
       const data = await response.json();
-      const replyText = data.reply || "Prince's story speaks of quiet truth and sincerity. Ask me anything about his 11 Acts!";
+      let replyText = data.reply;
+
+      if (!replyText || replyText.includes("dikkat mehsoos")) {
+        replyText = generateClientSideAssistantReply(query.trim());
+      }
 
       const assistantMsg: ChatMessage = {
         id: `assistant-${Date.now()}`,
@@ -204,16 +287,22 @@ export const AIAssistantModal: React.FC<AIAssistantModalProps> = ({ isOpen, onCl
         speakText(replyText);
       }
     } catch (err) {
-      console.error("AI Assistant chat error:", err);
-      setMessages(prev => [
-        ...prev,
-        {
-          id: `err-${Date.now()}`,
-          sender: 'assistant',
-          text: "I am having trouble connecting right now, but you can explore Prince's 11 Acts directly in the Autobiography tab.",
-          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-        }
-      ]);
+      console.warn("Server API route not available (Static GitHub Pages deployment). Using client-side Knowledge Engine:", err);
+      
+      const replyText = generateClientSideAssistantReply(query.trim());
+
+      const assistantMsg: ChatMessage = {
+        id: `assistant-${Date.now()}`,
+        sender: 'assistant',
+        text: replyText,
+        timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      };
+
+      setMessages(prev => [...prev, assistantMsg]);
+
+      if (autoSpeak) {
+        speakText(replyText);
+      }
     } finally {
       setIsLoading(false);
     }
