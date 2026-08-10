@@ -38,7 +38,11 @@ import {
   Maximize2,
   X,
   Search,
-  Check
+  Check,
+  Lock,
+  Unlock,
+  Key,
+  EyeOff
 } from 'lucide-react';
 
 interface OSCard {
@@ -416,6 +420,13 @@ const LEARNING_ROADMAP: LearningSubject[] = [
 ];
 
 export const TheLifeImBuilding: React.FC = () => {
+  const [isUnlocked, setIsUnlocked] = useState<boolean>(() => {
+    return sessionStorage.getItem('the_life_im_building_unlocked') === 'true';
+  });
+  const [passwordInput, setPasswordInput] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+
   const [activeMilestone, setActiveMilestone] = useState<string>('today');
   const [selectedOSCard, setSelectedOSCard] = useState<OSCard | null>(null);
   const [expandedSubject, setExpandedSubject] = useState<string | null>(null);
@@ -424,6 +435,23 @@ export const TheLifeImBuilding: React.FC = () => {
 
   // Days since restart live calculator
   const [daysElapsed, setDaysElapsed] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+
+  const handleUnlockSection = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (passwordInput.trim() === 'Prince_Anvii') {
+      setIsUnlocked(true);
+      sessionStorage.setItem('the_life_im_building_unlocked', 'true');
+      setPasswordError('');
+      setPasswordInput('');
+    } else {
+      setPasswordError('Incorrect password. Please try again.');
+    }
+  };
+
+  const handleLockSection = () => {
+    setIsUnlocked(false);
+    sessionStorage.removeItem('the_life_im_building_unlocked');
+  };
 
   useEffect(() => {
     // Restart anchor date
@@ -464,6 +492,90 @@ export const TheLifeImBuilding: React.FC = () => {
     }
   };
 
+  if (!isUnlocked) {
+    return (
+      <div className="w-full max-w-xl mx-auto py-12 px-4 text-center space-y-8 font-sans">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="p-8 sm:p-10 rounded-3xl bg-gradient-to-b from-white/[0.06] to-white/[0.02] border border-orange-400/30 backdrop-blur-2xl shadow-2xl relative overflow-hidden space-y-6 text-center"
+        >
+          {/* Ambient Glow */}
+          <div className="absolute -top-20 -left-20 w-48 h-48 bg-orange-500/20 rounded-full blur-3xl pointer-events-none" />
+          <div className="absolute -bottom-20 -right-20 w-48 h-48 bg-amber-500/20 rounded-full blur-3xl pointer-events-none" />
+
+          {/* Lock Icon */}
+          <div className="mx-auto w-16 h-16 rounded-2xl bg-orange-500/20 border border-orange-400/40 flex items-center justify-center text-orange-200 shadow-inner">
+            <Lock className="w-8 h-8 text-orange-300 animate-pulse" />
+          </div>
+
+          <div className="space-y-2">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-500/10 border border-orange-400/30 text-orange-200 text-[11px] font-mono tracking-widest uppercase">
+              <Shield className="w-3.5 h-3.5 text-orange-300" />
+              <span>PROTECTED SECTION</span>
+            </div>
+            <h2 className="font-serif text-2xl sm:text-3xl text-white font-light">
+              The Life I'm <span className="italic text-orange-200">Building</span>
+            </h2>
+            <p className="text-xs sm:text-sm text-white/70 max-w-sm mx-auto font-light leading-relaxed">
+              This section contains Prince's future roadmap, 27 OS habits, and 5 & 9-month missions. Enter password to unlock.
+            </p>
+          </div>
+
+          {/* Password Form */}
+          <form onSubmit={handleUnlockSection} className="space-y-4 max-w-sm mx-auto pt-2">
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-white/40">
+                <Key className="w-4 h-4" />
+              </div>
+              <input
+                type={showPassword ? 'text' : 'password'}
+                value={passwordInput}
+                onChange={(e) => {
+                  setPasswordInput(e.target.value);
+                  if (passwordError) setPasswordError('');
+                }}
+                placeholder="Enter password..."
+                className="w-full pl-10 pr-10 py-3 rounded-xl bg-black/60 border border-white/15 text-white text-sm placeholder-white/40 focus:outline-none focus:border-orange-400 transition-all font-mono"
+                autoFocus
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute inset-y-0 right-0 pr-3 flex items-center text-white/40 hover:text-white/80 transition-colors cursor-pointer"
+              >
+                {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+              </button>
+            </div>
+
+            {passwordError && (
+              <motion.p
+                initial={{ opacity: 0, y: -5 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-xs text-rose-400 font-mono"
+              >
+                {passwordError}
+              </motion.p>
+            )}
+
+            <button
+              type="submit"
+              className="w-full py-3 rounded-xl bg-gradient-to-r from-orange-500/80 via-amber-500/80 to-rose-500/80 hover:from-orange-500 hover:to-rose-500 text-white font-sans text-xs tracking-widest uppercase font-semibold cursor-pointer shadow-lg hover:shadow-orange-500/20 transition-all flex items-center justify-center gap-2 group"
+            >
+              <span>Unlock Section</span>
+              <Unlock className="w-4 h-4 group-hover:scale-110 transition-transform" />
+            </button>
+          </form>
+
+          <p className="text-[11px] text-white/40 italic font-serif">
+            Password: <span className="font-mono text-orange-200/80">Prince_Anvii</span>
+          </p>
+        </motion.div>
+      </div>
+    );
+  }
+
   return (
     <div className="w-full max-w-6xl mx-auto space-y-20 py-8 text-[#e8e6e3] font-sans">
       {/* 1. CINEMATIC INTRODUCTION */}
@@ -473,10 +585,21 @@ export const TheLifeImBuilding: React.FC = () => {
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         className="text-center space-y-8 relative pt-6"
       >
-        {/* Subtle top pill */}
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-orange-200/90 text-xs tracking-widest uppercase backdrop-blur-md">
-          <Sparkles className="w-3.5 h-3.5 text-orange-200" />
-          <span>The Life I'm Building • Horizon Protocol</span>
+        {/* Top pill & Re-lock button */}
+        <div className="inline-flex items-center gap-3">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-orange-200/90 text-xs tracking-widest uppercase backdrop-blur-md">
+            <Sparkles className="w-3.5 h-3.5 text-orange-200" />
+            <span>The Life I'm Building • Horizon Protocol</span>
+          </div>
+
+          <button
+            onClick={handleLockSection}
+            className="px-3 py-1.5 rounded-full bg-rose-500/10 hover:bg-rose-500/20 text-rose-200 border border-rose-500/30 text-xs font-mono flex items-center gap-1.5 transition-all cursor-pointer"
+            title="Re-lock this section"
+          >
+            <Lock className="w-3 h-3 text-rose-300" />
+            <span>Lock</span>
+          </button>
         </div>
 
         {/* Large Cinematic Title */}
