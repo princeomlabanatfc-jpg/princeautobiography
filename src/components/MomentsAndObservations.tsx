@@ -24,6 +24,7 @@ import imgAnvii2 from '../assets/images/Anvii2.jpeg';
 import imgAnvii3 from '../assets/images/Anvii3.jpeg';
 import imgAnvii4 from '../assets/images/Anvii4.jpeg';
 import imgAnvii5 from '../assets/images/Anvii5.jpeg';
+import imgAnvii6 from '../assets/images/Anvii6.jpg';
 
 export interface PolaroidMemory {
   id: string;
@@ -139,6 +140,17 @@ const INITIAL_POLAROIDS: PolaroidMemory[] = [
     likes: 112
   },
   {
+    id: 'pol-anvii-6',
+    title: 'Anvii — Graceful Portrait',
+    date: 'Special Memory',
+    location: 'Cherished Moment',
+    tag: 'Anvii',
+    imageUrl: imgAnvii6,
+    frontCaption: 'A beautiful candid moment of Anvii, full of poise and warmth.',
+    backNote: 'A special portrait of Anvii adding to our cherished collection of timeless memories.',
+    likes: 105
+  },
+  {
     id: 'pol-5',
     title: 'The Marriage Chat Memory (Instagram)',
     date: 'Instagram Chat (@againanvi)',
@@ -198,13 +210,13 @@ export const MomentsAndObservations: React.FC<MomentsAndObservationsProps> = ({ 
   const [viewMode, setViewMode] = useState<'turningPoints' | 'polaroidGallery'>('turningPoints');
   const [polaroids, setPolaroids] = useState<PolaroidMemory[]>(() => {
     try {
-      const saved = localStorage.getItem('anvii_prince_polaroids_v7');
+      const saved = localStorage.getItem('anvii_prince_polaroids_v8');
       if (saved) {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed) && parsed.length > 0) return parsed;
       }
       // Migrate from older local storage version to preserve any custom added polaroids
-      const prevSaved = localStorage.getItem('anvii_prince_polaroids_v6');
+      const prevSaved = localStorage.getItem('anvii_prince_polaroids_v7') || localStorage.getItem('anvii_prince_polaroids_v6');
       if (prevSaved) {
         const parsed = JSON.parse(prevSaved);
         if (Array.isArray(parsed)) {
@@ -340,7 +352,7 @@ export const MomentsAndObservations: React.FC<MomentsAndObservationsProps> = ({ 
   useEffect(() => {
     try {
       const persistent = polaroids.filter(p => !p.imageUrl.startsWith('blob:'));
-      localStorage.setItem('anvii_prince_polaroids_v7', JSON.stringify(persistent));
+      localStorage.setItem('anvii_prince_polaroids_v8', JSON.stringify(persistent));
     } catch (e) {
       console.warn('Failed saving polaroids', e);
     }
