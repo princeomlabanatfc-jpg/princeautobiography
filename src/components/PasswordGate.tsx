@@ -121,7 +121,7 @@ export const PasswordGate: React.FC<PasswordGateProps> = ({ onUnlock, onViewRule
               Review Our Silent Agreement Promises
             </button>
           )}
-          <span className="italic opacity-60">Authored by Prince for Anvii</span>
+          <span className="italic opacity-60">Authored by Prince</span>
         </div>
       </motion.div>
     </div>

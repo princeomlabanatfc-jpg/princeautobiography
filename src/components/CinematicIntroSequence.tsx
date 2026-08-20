@@ -48,15 +48,23 @@ export const CinematicIntroSequence: React.FC<CinematicIntroSequenceProps> = ({ 
     const centerX = width / 2;
     const centerY = height / 2;
 
-    // 4 Corner starting points
+    // 4 Corner starting points with distinct persistent color identities
     const corners = [
-      { x: 0, y: 0, color: '#f59e0b', startAngle: 0 },                       // Top-Left Gold
-      { x: width, y: 0, color: '#ec4899', startAngle: Math.PI / 2 },          // Top-Right Pink
-      { x: width, y: height, color: '#06b6d4', startAngle: Math.PI },         // Bottom-Right Cyan
-      { x: 0, y: height, color: '#10b981', startAngle: (Math.PI * 3) / 2 }    // Bottom-Left Emerald
+      { x: 0, y: 0, color: '#f59e0b', rgb: [245, 158, 11], name: 'Gold' },            // Top-Left Gold
+      { x: width, y: 0, color: '#ec4899', rgb: [236, 72, 153], name: 'Pink' },          // Top-Right Pink
+      { x: width, y: height, color: '#06b6d4', rgb: [6, 182, 212], name: 'Cyan' },       // Bottom-Right Cyan
+      { x: 0, y: height, color: '#10b981', rgb: [16, 185, 129], name: 'Emerald' }     // Bottom-Left Emerald
     ];
 
-    // 4 Mid-edge beams
+    // Helper: interpolate RGB
+    const lerpColor = (c1: number[], c2: number[], t: number) => {
+      const r = Math.round(c1[0] + (c2[0] - c1[0]) * t);
+      const g = Math.round(c1[1] + (c2[1] - c1[1]) * t);
+      const b = Math.round(c1[2] + (c2[2] - c1[2]) * t);
+      return `rgb(${r}, ${g}, ${b})`;
+    };
+
+    // 4 Mid-edge beams for Phase 3 collision
     const midEdgeBeams = [
       { startX: centerX, startY: 0, color: '#fbbf24' },   // Top
       { startX: width, startY: centerY, color: '#f43f5e' }, // Right
@@ -88,87 +96,205 @@ export const CinematicIntroSequence: React.FC<CinematicIntroSequenceProps> = ({ 
       ctx.fillStyle = 'rgba(4, 4, 7, 0.25)';
       ctx.fillRect(0, 0, width, height);
 
-      // --- PHASE 1: Corner lines traveling to 1D Circle Orbit (1.0s to 4.5s) ---
-      // --- PHASE 2: 1D Circle orbit rotating at ultra speed & circumference shrinking (4.5s to 9.5s) ---
+      // --- PHASE 1 & 2: UNIFIED 4-BEAM CONTINUOUS PHYSICAL TRAJECTORY (1.0s to 9.5s) ---
+      // The exact same 4 beams travel from corners -> reach central orbit -> bend tangentially ->
+      // orbit individually preserving colors -> overlap & mix into gold -> accelerate -> compress into singularity.
       if (elapsed >= 1.0 && elapsed < 9.5) {
-        const isApproaching = elapsed < 4.5;
-        const initialOrbitRadius = Math.min(width, height) * 0.35;
+        const initialOrbitRadius = Math.min(width, height) * 0.32;
+        const targetGoldRgb = [255, 215, 0]; // Radiant Gold (#ffd700)
 
-        if (isApproaching) {
-          // Lines traveling from the 4 corners to the circle edge
-          const approachProgress = Math.min((elapsed - 1.0) / 3.5, 1.0); // 0 to 1
+        // 1. Calculate continuous angular progress Omega(t) with C1 velocity continuity
+        let omega = 0;
+        if (elapsed > 4.5) {
+          const dt = elapsed - 4.5;
+          if (dt <= 2.0) {
+            // Stage B & C: 4.5s to 6.5s - Initial orbital rotation (~3.5 rad/s accelerating to ~7 rad/s)
+            omega = 3.5 * dt + 0.85 * dt * dt;
+          } else if (dt <= 3.1) {
+            // Stage D & E: 6.5s to 7.6s - Overlap & Color mixing (~7 rad/s accelerating to ~13 rad/s)
+            const dt2 = dt - 2.0;
+            const omegaBase = 3.5 * 2.0 + 0.85 * 4.0;
+            omega = omegaBase + 6.9 * dt2 + 2.8 * dt2 * dt2;
+          } else if (dt <= 3.9) {
+            // Stage F & G: 7.6s to 8.4s - Golden integration & acceleration (~13 rad/s accelerating to ~26 rad/s)
+            const dt3 = dt - 3.1;
+            const omegaBase = 3.5 * 2.0 + 0.85 * 4.0 + 6.9 * 1.1 + 2.8 * 1.21;
+            omega = omegaBase + 13.0 * dt3 + 8.5 * dt3 * dt3;
+          } else {
+            // Stage H: 8.4s to 9.5s - Singularity compression & hyper-spin (accelerating up to ~75 rad/s)
+            const dt4 = dt - 3.9;
+            const omegaBase = 3.5 * 2.0 + 0.85 * 4.0 + 6.9 * 1.1 + 2.8 * 1.21 + 13.0 * 0.8 + 8.5 * 0.64;
+            omega = omegaBase + 26.6 * dt4 + 22.0 * dt4 * dt4;
+          }
+        }
 
-          corners.forEach((c) => {
-            ctx.save();
-            ctx.lineWidth = 3.5;
-            ctx.shadowColor = c.color;
-            ctx.shadowBlur = 18;
+        // 2. Calculate dynamic orbit radius R(t)
+        // Stays at initialOrbitRadius until golden integration, then compresses into singularity point
+        let currentRadius = initialOrbitRadius;
+        if (elapsed >= 7.6) {
+          const compProgress = Math.min((elapsed - 7.6) / 1.9, 1.0); // 0 to 1 over 7.6s - 9.5s
+          const easedComp = compProgress * compProgress * (3 - 2 * compProgress); // smoothstep
+          currentRadius = initialOrbitRadius * (1 - easedComp * 0.975); // compresses to ~6px
+        }
 
-            const initialDist = Math.hypot(centerX - c.x, centerY - c.y);
+        // 3. Color transition progress (Preserves 100% original colors until 6.5s, then blends to gold by 7.8s)
+        let colorBlendFactor = 0;
+        if (elapsed >= 6.5) {
+          const mixProgress = Math.min((elapsed - 6.5) / 1.3, 1.0);
+          colorBlendFactor = mixProgress * mixProgress * (3 - 2 * mixProgress);
+        }
+
+        // 4. Glow blur intensity increases smoothly with energy accumulation
+        let glowBlur = 18;
+        if (elapsed >= 4.5 && elapsed < 6.5) glowBlur = 24;
+        else if (elapsed >= 6.5 && elapsed < 7.8) glowBlur = 32;
+        else if (elapsed >= 7.8) glowBlur = 40 + Math.sin(elapsed * 20) * 6;
+
+        // Use additive blending so overlapping beam colors physically mix luminous light
+        ctx.save();
+        ctx.globalCompositeOperation = 'lighter';
+
+        corners.forEach((c) => {
+          ctx.save();
+
+          // Smoothly interpolated beam color (from original -> mixed spectrum -> radiant gold)
+          const beamRgbString = lerpColor(c.rgb, targetGoldRgb, colorBlendFactor);
+          ctx.strokeStyle = beamRgbString;
+          ctx.shadowColor = beamRgbString;
+          ctx.shadowBlur = glowBlur;
+          ctx.lineWidth = 3.5 + colorBlendFactor * 1.2;
+
+          const initialDist = Math.hypot(centerX - c.x, centerY - c.y);
+          const angleFromCenter = Math.atan2(c.y - centerY, c.x - centerX);
+          const contactX = centerX + Math.cos(angleFromCenter) * initialOrbitRadius;
+          const contactY = centerY + Math.sin(angleFromCenter) * initialOrbitRadius;
+
+          let sparkHeadX = contactX;
+          let sparkHeadY = contactY;
+
+          if (elapsed < 4.5) {
+            // --- STAGE 1: Corner travel approaching the central orbit contact point ---
+            const approachProgress = Math.min((elapsed - 1.0) / 3.5, 1.0);
             const currentDist = initialDist - (initialDist - initialOrbitRadius) * approachProgress;
-            const angleToCenter = Math.atan2(centerY - c.y, centerX - c.x);
 
             ctx.beginPath();
             const steps = 45;
             for (let i = 0; i <= steps; i++) {
               const t = i / steps;
               const d = initialDist - (initialDist - currentDist) * t;
-              const px = c.x + Math.cos(angleToCenter) * d;
-              const py = c.y + Math.sin(angleToCenter) * d;
+              const px = c.x + (contactX - c.x) * (1 - (d - initialOrbitRadius) / (initialDist - initialOrbitRadius));
+              const py = c.y + (contactY - c.y) * (1 - (d - initialOrbitRadius) / (initialDist - initialOrbitRadius));
 
-              // Wave sine ripple on travel
-              const waveAmp = (1 - t) * 25 * Math.sin(t * Math.PI * 6 - elapsed * 10);
-              const perpX = px + Math.cos(angleToCenter + Math.PI / 2) * waveAmp;
-              const perpY = py + Math.sin(angleToCenter + Math.PI / 2) * waveAmp;
+              // Sine-wave ripple dampens as it nears orbit contact
+              const rippleDamp = (1 - t * 0.7) * (1 - approachProgress * 0.4);
+              const waveAmp = rippleDamp * 22 * Math.sin(t * Math.PI * 6 - elapsed * 10);
+              const perpX = px + Math.cos(angleFromCenter + Math.PI / 2) * waveAmp;
+              const perpY = py + Math.sin(angleFromCenter + Math.PI / 2) * waveAmp;
 
-              // As it touches the circle boundary (t near 1), smoothly turn GOLDEN
-              const colorBlend = t > 0.85 ? '#ffd700' : c.color;
-              ctx.strokeStyle = colorBlend;
+              if (i === 0) ctx.moveTo(perpX, perpY);
+              else ctx.lineTo(perpX, perpY);
+
+              if (i === steps) {
+                sparkHeadX = perpX;
+                sparkHeadY = perpY;
+              }
+            }
+            ctx.stroke();
+
+          } else if (elapsed < 5.4) {
+            // --- STAGE A & B: Smooth physical bend & transition into circular orbit ---
+            // Head is already orbiting along the circle, while the trail smoothly connects back
+            // to the incoming corner trajectory without visual pop or object reset.
+            const transitionProgress = (elapsed - 4.5) / 0.9; // 0 to 1
+            const headAngle = angleFromCenter + omega;
+
+            sparkHeadX = centerX + Math.cos(headAngle) * currentRadius;
+            sparkHeadY = centerY + Math.sin(headAngle) * currentRadius;
+
+            // Render continuous composite path: incoming tail segment + curved bend + orbit arc
+            ctx.beginPath();
+
+            // 1. Tail portion along incoming corner ray
+            const tailDistFromCenter = initialOrbitRadius + (initialDist - initialOrbitRadius) * (1 - transitionProgress) * 0.7;
+            const stepsIncoming = 25;
+            for (let i = 0; i <= stepsIncoming; i++) {
+              const t = i / stepsIncoming;
+              const d = tailDistFromCenter - (tailDistFromCenter - initialOrbitRadius) * t;
+              const px = centerX + Math.cos(angleFromCenter) * d;
+              const py = centerY + Math.sin(angleFromCenter) * d;
+
+              // Remaining subtle wave ripple on tail
+              const waveAmp = (1 - t) * (1 - transitionProgress) * 12 * Math.sin(t * Math.PI * 4 - elapsed * 8);
+              const perpX = px + Math.cos(angleFromCenter + Math.PI / 2) * waveAmp;
+              const perpY = py + Math.sin(angleFromCenter + Math.PI / 2) * waveAmp;
 
               if (i === 0) ctx.moveTo(perpX, perpY);
               else ctx.lineTo(perpX, perpY);
             }
-            ctx.stroke();
-            ctx.restore();
-          });
-        } else {
-          // Seamless Continuation on the SAME 1D Circle Orbit!
-          const orbitElapsed = elapsed - 4.5;
-          const orbitProgress = Math.min(orbitElapsed / 5.0, 1.0); // 0 to 1 over 5 sec
 
-          // Circumference / radius shrinks smoothly from 35% of screen down to 8px core point
-          const currentRadius = initialOrbitRadius * (1 - Math.pow(orbitProgress, 1.5) * 0.96);
-
-          // Fast infinite spin speed (accelerating as radius shrinks)
-          const rotationSpeed = orbitElapsed * (6 + orbitProgress * 20);
-
-          corners.forEach((c) => {
-            ctx.save();
-            ctx.lineWidth = 4;
-            ctx.strokeStyle = '#ffd700'; // GOLDEN COLORED
-            ctx.shadowColor = '#fbbf24';
-            ctx.shadowBlur = 25;
-
-            // Lock onto 1D circle starting at each corner's cardinal angle
-            const baseAngle = c.startAngle + rotationSpeed;
-            const arcSpan = (Math.PI / 2) * (1 - orbitProgress * 0.3);
-
-            ctx.beginPath();
-            ctx.arc(centerX, centerY, Math.max(2, currentRadius), baseAngle, baseAngle + arcSpan);
+            // 2. Circular orbit arc traveled by the head
+            const stepsArc = 30;
+            for (let i = 1; i <= stepsArc; i++) {
+              const t = i / stepsArc;
+              const currentAngle = angleFromCenter + omega * t;
+              const ax = centerX + Math.cos(currentAngle) * currentRadius;
+              const ay = centerY + Math.sin(currentAngle) * currentRadius;
+              ctx.lineTo(ax, ay);
+            }
             ctx.stroke();
 
-            // Bright golden head spark
-            const sparkX = centerX + Math.cos(baseAngle + arcSpan) * currentRadius;
-            const sparkY = centerY + Math.sin(baseAngle + arcSpan) * currentRadius;
+          } else {
+            // --- STAGE C through H: Pure individual rotating beam arc on the orbit ---
+            // Each of the original 4 beams has its own moving head and dynamic arc span.
+            // As speed increases, arc span stretches naturally, causing the 4 beams to overlap.
+            const headAngle = angleFromCenter + omega;
+            sparkHeadX = centerX + Math.cos(headAngle) * currentRadius;
+            sparkHeadY = centerY + Math.sin(headAngle) * currentRadius;
 
-            ctx.fillStyle = '#ffffff';
+            // Arc span expands as velocity increases, wrapping around the orbit
+            const speedFactor = Math.min((elapsed - 5.4) / 3.0, 1.0);
+            const arcSpan = (Math.PI * 0.55) + speedFactor * (Math.PI * 1.5); // 100° expanding to 360°+
+
             ctx.beginPath();
-            ctx.arc(sparkX, sparkY, 4, 0, Math.PI * 2);
-            ctx.fill();
+            const steps = 40;
+            for (let i = 0; i <= steps; i++) {
+              const t = i / steps;
+              const a = headAngle - arcSpan * (1 - t);
+              const px = centerX + Math.cos(a) * currentRadius;
+              const py = centerY + Math.sin(a) * currentRadius;
+              if (i === 0) ctx.moveTo(px, py);
+              else ctx.lineTo(px, py);
+            }
+            ctx.stroke();
+          }
 
-            ctx.restore();
-          });
+          // --- LEADING SPARK HEAD ---
+          // White-hot core with beam's native halo glow
+          ctx.fillStyle = '#ffffff';
+          ctx.shadowColor = beamRgbString;
+          ctx.shadowBlur = glowBlur + 8;
+          ctx.beginPath();
+          const sparkSize = 4.5 + colorBlendFactor * 1.5;
+          ctx.arc(sparkHeadX, sparkHeadY, sparkSize, 0, Math.PI * 2);
+          ctx.fill();
+
+          ctx.restore();
+        });
+
+        // Glowing singularity center beacon building up energy as radius shrinks
+        if (elapsed >= 7.6) {
+          const coreProgress = (elapsed - 7.6) / 1.9;
+          ctx.save();
+          ctx.fillStyle = '#ffffff';
+          ctx.shadowColor = '#ffd700';
+          ctx.shadowBlur = 35 + coreProgress * 30;
+          ctx.beginPath();
+          ctx.arc(centerX, centerY, 3 + coreProgress * 7 + Math.sin(elapsed * 30) * 2, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.restore();
         }
+
+        ctx.restore(); // Restore globalCompositeOperation
       }
 
       // --- PHASE 3: Mid-edge 4 Big Light Beams Speed Collision (9.5s to 10.8s) ---

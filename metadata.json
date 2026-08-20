@@ -1,6 +1,6 @@
 {
-  "name": "For Anvii",
-  "description": "A handcrafted interactive experience created with care by Prince for Anvii.",
+  "name": "Prince Autobiography",
+  "description": "A handcrafted interactive autobiography and personal journey created with care by Prince.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
