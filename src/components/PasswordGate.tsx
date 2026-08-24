@@ -14,7 +14,7 @@ export const PasswordGate: React.FC<PasswordGateProps> = ({ onUnlock, onViewRule
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (password === 'Prince@2009') {
+    if (password === 'Prince@2027TFC') {
       setError(false);
       setIsSuccess(true);
       setTimeout(() => {
