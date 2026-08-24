@@ -89,18 +89,22 @@ export const EntryExperience: React.FC<EntryExperienceProps> = ({ onContinue }) 
               <button
                 onClick={onContinue}
                 id="entry-step-inside-btn"
-                className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-orange-500/80 via-amber-500/80 to-rose-500/80 hover:from-orange-500 hover:to-rose-500 text-white font-sans text-xs tracking-widest uppercase font-medium shadow-xl hover:shadow-orange-500/25 transition-all cursor-pointer group"
+                className="btn-primary-gradient inline-flex items-center gap-3 px-8 py-4 rounded-full text-white font-sans text-xs tracking-widest uppercase font-semibold shadow-2xl hover:shadow-orange-500/40 transition-all cursor-pointer group"
+                style={{
+                  backgroundColor: '#ea580c',
+                  backgroundImage: 'linear-gradient(135deg, #f97316 0%, #f59e0b 50%, #f43f5e 100%)',
+                }}
               >
-                <BookOpen className="w-4 h-4 text-orange-200" />
+                <BookOpen className="w-4 h-4 text-orange-100" />
                 <span>Begin Reading the 11 Acts</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform" />
               </button>
             </motion.div>
           )}
         </AnimatePresence>
       </div>
 
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-center text-[10px] font-sans text-white/30 tracking-widest uppercase">
+      <div className="absolute bottom-20 sm:bottom-8 left-1/2 -translate-x-1/2 text-center text-[10px] font-sans text-white/30 tracking-widest uppercase px-4 w-full pointer-events-none">
         Handcrafted with sincerity for Anvii by Prince
       </div>
     </div>

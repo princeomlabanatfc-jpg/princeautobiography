@@ -561,7 +561,11 @@ export const TheLifeImBuilding: React.FC = () => {
 
             <button
               type="submit"
-              className="w-full py-3 rounded-xl bg-gradient-to-r from-orange-500/80 via-amber-500/80 to-rose-500/80 hover:from-orange-500 hover:to-rose-500 text-white font-sans text-xs tracking-widest uppercase font-semibold cursor-pointer shadow-lg hover:shadow-orange-500/20 transition-all flex items-center justify-center gap-2 group"
+              className="btn-primary-gradient w-full py-3 rounded-xl text-white font-sans text-xs tracking-widest uppercase font-semibold cursor-pointer shadow-lg hover:shadow-orange-500/30 transition-all flex items-center justify-center gap-2 group"
+              style={{
+                backgroundColor: '#ea580c',
+                backgroundImage: 'linear-gradient(135deg, #f97316 0%, #f59e0b 50%, #f43f5e 100%)',
+              }}
             >
               <span>Unlock Section</span>
               <Unlock className="w-4 h-4 group-hover:scale-110 transition-transform" />
@@ -966,7 +970,11 @@ export const TheLifeImBuilding: React.FC = () => {
 
               <button
                 onClick={() => setSelectedOSCard(null)}
-                className="w-full py-3 rounded-xl bg-gradient-to-r from-orange-500/80 to-amber-500/80 hover:from-orange-500 hover:to-amber-500 text-white font-sans text-xs tracking-widest uppercase font-medium cursor-pointer transition-all"
+                className="btn-ai-gradient w-full py-3 rounded-xl text-white font-sans text-xs tracking-widest uppercase font-medium cursor-pointer transition-all"
+                style={{
+                  backgroundColor: '#ea580c',
+                  backgroundImage: 'linear-gradient(135deg, #f97316 0%, #f59e0b 100%)',
+                }}
               >
                 Close Component
               </button>

@@ -578,7 +578,11 @@ export const CinematicIntroSequence: React.FC<CinematicIntroSequenceProps> = ({ 
               {/* Main Welcome Button */}
               <button
                 onClick={handleEnterWorld}
-                className="relative z-10 group flex items-center gap-3 px-9 py-4 rounded-full bg-gradient-to-r from-orange-500 via-amber-500 to-orange-600 text-white font-sans text-sm tracking-widest font-bold shadow-2xl hover:shadow-orange-500/60 border border-white/40 transition-all duration-300 transform hover:scale-105 active:scale-95 cursor-pointer"
+                className="btn-primary-gradient relative z-10 group flex items-center gap-3 px-9 py-4 rounded-full text-white font-sans text-sm tracking-widest font-bold shadow-2xl hover:shadow-orange-500/60 border border-white/40 transition-all duration-300 transform hover:scale-105 active:scale-95 cursor-pointer"
+                style={{
+                  backgroundColor: '#ea580c',
+                  backgroundImage: 'linear-gradient(135deg, #f97316 0%, #f59e0b 50%, #ea580c 100%)',
+                }}
               >
                 <span>ENTER PRINCE'S WORLD</span>
                 <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center group-hover:translate-x-1 transition-transform">

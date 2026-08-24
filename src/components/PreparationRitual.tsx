@@ -71,10 +71,14 @@ export const PreparationRitual: React.FC<PreparationRitualProps> = ({ onComplete
           <button
             onClick={handleNext}
             id={`prep-step-btn-${currentIndex}`}
-            className="inline-flex items-center gap-3 px-8 py-3.5 rounded-full bg-gradient-to-r from-orange-500/80 via-amber-500/80 to-rose-500/80 hover:from-orange-500 hover:to-rose-500 text-white font-sans text-xs tracking-widest uppercase font-medium shadow-xl hover:shadow-orange-500/20 transition-all cursor-pointer group"
+            className="btn-primary-gradient inline-flex items-center gap-3 px-8 py-3.5 rounded-full text-white font-sans text-xs tracking-widest uppercase font-semibold shadow-xl hover:shadow-orange-500/30 transition-all cursor-pointer group"
+            style={{
+              backgroundColor: '#ea580c',
+              backgroundImage: 'linear-gradient(135deg, #f97316 0%, #f59e0b 50%, #f43f5e 100%)',
+            }}
           >
             <span>{isLast ? "I Am Ready To Cross" : "Take Time To Absorb"}</span>
-            <ArrowRight className="w-4 h-4 text-orange-200 group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="w-4 h-4 text-orange-100 group-hover:translate-x-1 transition-transform" />
           </button>
         </div>
       </div>

@@ -54,13 +54,17 @@ export const Threshold: React.FC<ThresholdProps> = ({ onEnter }) => {
             onClick={handleCrossThreshold}
             disabled={isCrossed}
             id="threshold-cross-doorway-btn"
-            className={`group inline-flex items-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-orange-500/80 to-amber-500/80 hover:from-orange-500 hover:to-amber-500 text-white font-sans text-xs tracking-widest uppercase font-medium shadow-xl transition-all cursor-pointer ${
+            className={`btn-primary-gradient group inline-flex items-center gap-3 px-8 py-4 rounded-full text-white font-sans text-xs tracking-widest uppercase font-semibold shadow-xl transition-all cursor-pointer ${
               isCrossed ? 'opacity-50 cursor-wait' : ''
             }`}
+            style={{
+              backgroundColor: '#ea580c',
+              backgroundImage: 'linear-gradient(135deg, #f97316 0%, #f59e0b 50%, #f43f5e 100%)',
+            }}
           >
-            <Compass className="w-4 h-4 text-orange-200 group-hover:rotate-45 transition-transform duration-700" />
+            <Compass className="w-4 h-4 text-orange-100 group-hover:rotate-45 transition-transform duration-700" />
             <span>{isCrossed ? "Opening the Conversation..." : "Cross Into the Unspoken Story"}</span>
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform" />
           </button>
         </motion.div>
 

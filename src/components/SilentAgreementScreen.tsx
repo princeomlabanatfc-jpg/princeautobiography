@@ -238,9 +238,13 @@ export const SilentAgreementScreen: React.FC<SilentAgreementScreenProps> = ({ on
               disabled={!isAllChecked}
               className={`w-full max-w-md py-4 px-8 rounded-2xl font-sans text-sm tracking-wider uppercase font-semibold transition-all flex items-center justify-center gap-3 cursor-pointer ${
                 isAllChecked
-                  ? 'bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 text-white shadow-xl shadow-amber-500/20 hover:scale-[1.02] active:scale-[0.98]'
+                  ? 'btn-gold-gradient text-white shadow-xl shadow-amber-500/20 hover:scale-[1.02] active:scale-[0.98]'
                   : 'bg-white/5 border border-white/10 text-white/30 cursor-not-allowed'
               }`}
+              style={isAllChecked ? {
+                backgroundColor: '#d97706',
+                backgroundImage: 'linear-gradient(135deg, #f59e0b 0%, #ea580c 50%, #d97706 100%)',
+              } : undefined}
             >
               <span>Begin Confirmation Seals (1 of 3)</span>
               <ArrowRight className="w-4 h-4" />
@@ -294,7 +298,11 @@ export const SilentAgreementScreen: React.FC<SilentAgreementScreenProps> = ({ on
                     </button>
                     <button
                       onClick={() => setConfirmStep(2)}
-                      className="px-6 py-3 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-sans uppercase tracking-wider font-semibold cursor-pointer shadow-lg shadow-amber-500/20"
+                      className="btn-gold-gradient px-6 py-3 rounded-full text-white text-xs font-sans uppercase tracking-wider font-semibold cursor-pointer shadow-lg shadow-amber-500/20"
+                      style={{
+                        backgroundColor: '#ea580c',
+                        backgroundImage: 'linear-gradient(135deg, #f59e0b 0%, #f97316 100%)',
+                      }}
                     >
                       Yes, I Am Alone & Ready →
                     </button>
@@ -330,7 +338,11 @@ export const SilentAgreementScreen: React.FC<SilentAgreementScreenProps> = ({ on
                     </button>
                     <button
                       onClick={() => setConfirmStep(3)}
-                      className="px-6 py-3 rounded-full bg-gradient-to-r from-amber-500 to-orange-500 text-white text-xs font-sans uppercase tracking-wider font-semibold cursor-pointer shadow-lg shadow-amber-500/20"
+                      className="btn-gold-gradient px-6 py-3 rounded-full text-white text-xs font-sans uppercase tracking-wider font-semibold cursor-pointer shadow-lg shadow-amber-500/20"
+                      style={{
+                        backgroundColor: '#ea580c',
+                        backgroundImage: 'linear-gradient(135deg, #f59e0b 0%, #f97316 100%)',
+                      }}
                     >
                       I Pledge Absolute Privacy →
                     </button>
@@ -360,7 +372,11 @@ export const SilentAgreementScreen: React.FC<SilentAgreementScreenProps> = ({ on
                   <div className="pt-4 flex flex-col items-center gap-3">
                     <button
                       onClick={onAgree}
-                      className="w-full py-4 px-8 rounded-2xl bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 text-white font-sans text-sm tracking-widest uppercase font-bold shadow-2xl shadow-amber-500/30 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer flex items-center justify-center gap-3"
+                      className="btn-gold-gradient w-full py-4 px-8 rounded-2xl text-white font-sans text-sm tracking-widest uppercase font-bold shadow-2xl shadow-amber-500/30 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer flex items-center justify-center gap-3"
+                      style={{
+                        backgroundColor: '#d97706',
+                        backgroundImage: 'linear-gradient(135deg, #f59e0b 0%, #ea580c 50%, #d97706 100%)',
+                      }}
                     >
                       <span>[ I Promise ] → Enter</span>
                     </button>

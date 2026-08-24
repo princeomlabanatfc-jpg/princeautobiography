@@ -104,10 +104,14 @@ export const PasswordGate: React.FC<PasswordGateProps> = ({ onUnlock, onViewRule
           <button
             type="submit"
             id="password-gate-submit-btn"
-            className="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-orange-500/80 to-amber-500/80 hover:from-orange-500 hover:to-amber-500 text-white font-sans text-xs tracking-widest uppercase font-medium shadow-lg hover:shadow-orange-500/20 transition-all cursor-pointer flex items-center justify-center gap-2 group"
+            className="btn-ai-gradient w-full py-3.5 px-6 rounded-2xl text-white font-sans text-xs tracking-widest uppercase font-semibold shadow-xl hover:shadow-orange-500/30 transition-all cursor-pointer flex items-center justify-center gap-2 group"
+            style={{
+              backgroundColor: '#ea580c',
+              backgroundImage: 'linear-gradient(135deg, #f97316 0%, #f59e0b 100%)',
+            }}
           >
             <span>Unlock Experience</span>
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform" />
           </button>
         </form>
 

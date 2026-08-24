@@ -219,13 +219,14 @@ export default function App() {
       </main>
 
       {/* Floating Control Hub */}
-      <div className={`fixed bottom-6 right-6 z-40 flex items-center gap-2 transition-all duration-300 ${
+      <div className={`fixed bottom-4 sm:bottom-6 right-3 sm:right-6 z-40 max-w-[calc(100vw-1.5rem)] flex items-center gap-1.5 sm:gap-2 transition-all duration-300 ${
         isAnyModalOpen ? 'opacity-0 pointer-events-none invisible translate-y-4 scale-95' : 'opacity-100 pointer-events-auto translate-y-0 scale-100'
       }`}>
         <button
           onClick={() => setIsRoseShowerActive(true)}
           id="floating-rose-shower-btn"
-          className="p-3 rounded-full bg-rose-500/20 hover:bg-rose-500/30 text-rose-200 border border-rose-400/30 shadow-xl backdrop-blur-md transition-all cursor-pointer"
+          className="bg-rose-glass-btn p-2.5 sm:p-3 rounded-full shadow-xl backdrop-blur-md transition-all cursor-pointer shrink-0"
+          style={{ backgroundColor: 'rgba(244, 63, 94, 0.22)', borderColor: 'rgba(251, 113, 133, 0.35)' }}
           title="Secret Rose Petal Shower (Type ANVII)"
         >
           <Flower className="w-4 h-4 text-rose-300" />
@@ -234,7 +235,8 @@ export default function App() {
         <button
           onClick={() => setIsReasonsOpen(true)}
           id="floating-reasons-btn"
-          className="p-3 rounded-full bg-amber-500/20 hover:bg-amber-500/30 text-amber-200 border border-amber-400/30 shadow-xl backdrop-blur-md transition-all cursor-pointer"
+          className="bg-amber-glass-btn p-2.5 sm:p-3 rounded-full shadow-xl backdrop-blur-md transition-all cursor-pointer shrink-0"
+          style={{ backgroundColor: 'rgba(245, 158, 11, 0.22)', borderColor: 'rgba(251, 191, 36, 0.35)' }}
           title="100 Reasons Why Scratch-Card Deck"
         >
           <Gift className="w-4 h-4 text-amber-300" />
@@ -243,7 +245,8 @@ export default function App() {
         <button
           onClick={() => setIsHeartMathOpen(true)}
           id="floating-heart-math-btn"
-          className="p-3 rounded-full bg-pink-500/20 hover:bg-pink-500/30 text-pink-200 border border-pink-400/30 shadow-xl backdrop-blur-md transition-all cursor-pointer"
+          className="bg-pink-glass-btn p-2.5 sm:p-3 rounded-full shadow-xl backdrop-blur-md transition-all cursor-pointer shrink-0"
+          style={{ backgroundColor: 'rgba(236, 72, 153, 0.22)', borderColor: 'rgba(244, 114, 182, 0.35)' }}
           title="Cardioid Flower Heart Math Animation"
         >
           <Heart className="w-4 h-4 fill-pink-300/50 text-pink-200" />
@@ -252,32 +255,38 @@ export default function App() {
         <button
           onClick={() => setIsOpenWhenOpen(true)}
           id="floating-open-when-btn"
-          className="p-3 rounded-full bg-rose-500/20 hover:bg-rose-500/30 text-rose-200 border border-rose-400/30 shadow-xl backdrop-blur-md transition-all cursor-pointer"
+          className="bg-rose-glass-btn p-2.5 sm:p-3 rounded-full shadow-xl backdrop-blur-md transition-all cursor-pointer shrink-0"
+          style={{ backgroundColor: 'rgba(244, 63, 94, 0.22)', borderColor: 'rgba(251, 113, 133, 0.35)' }}
           title="Open When... Letters"
         >
-          <Mail className="w-4 h-4" />
+          <Mail className="w-4 h-4 text-rose-200" />
         </button>
 
         <button
           onClick={() => setIsQuizOpen(true)}
           id="floating-quiz-btn"
-          className="p-3 rounded-full bg-amber-500/20 hover:bg-amber-500/30 text-amber-200 border border-amber-400/30 shadow-xl backdrop-blur-md transition-all cursor-pointer"
+          className="bg-amber-glass-btn p-2.5 sm:p-3 rounded-full shadow-xl backdrop-blur-md transition-all cursor-pointer shrink-0"
+          style={{ backgroundColor: 'rgba(245, 158, 11, 0.22)', borderColor: 'rgba(251, 191, 36, 0.35)' }}
           title="How Well Do You Know Prince Quiz"
         >
-          <Sparkles className="w-4 h-4" />
+          <Sparkles className="w-4 h-4 text-amber-200" />
         </button>
 
         <button
           onClick={() => setIsAIAssistantOpen(true)}
           id="floating-ai-assistant-btn"
-          className="group flex items-center gap-2.5 px-4 py-3 rounded-full bg-gradient-to-r from-orange-500/90 to-amber-500/90 hover:from-orange-500 hover:to-amber-500 text-white font-sans text-xs tracking-wider font-medium shadow-2xl hover:shadow-orange-500/25 border border-white/20 transition-all duration-300 cursor-pointer backdrop-blur-md"
+          className="btn-ai-gradient group flex items-center gap-2 px-3 sm:px-4 py-2.5 sm:py-3 rounded-full text-white font-sans text-xs tracking-wider font-semibold shadow-2xl hover:shadow-orange-500/35 border border-white/25 transition-all duration-300 cursor-pointer backdrop-blur-md shrink-0"
+          style={{
+            backgroundColor: '#ea580c',
+            backgroundImage: 'linear-gradient(135deg, #f97316 0%, #f59e0b 100%)',
+          }}
         >
-          <div className="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center group-hover:rotate-12 transition-transform">
-            <Bot className="w-3.5 h-3.5 text-white" />
+          <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-white/20 flex items-center justify-center group-hover:rotate-12 transition-transform shrink-0">
+            <Bot className="w-3 sm:w-3.5 h-3 sm:h-3.5 text-white" />
           </div>
           <span className="hidden sm:inline">Ask Prince's AI Assistant</span>
-          <span className="sm:hidden">Ask AI</span>
-          <Sparkles className="w-3.5 h-3.5 text-orange-200 animate-pulse" />
+          <span className="sm:hidden text-white font-bold">Ask AI</span>
+          <Sparkles className="w-3.5 h-3.5 text-amber-200 animate-pulse shrink-0" />
         </button>
       </div>
 

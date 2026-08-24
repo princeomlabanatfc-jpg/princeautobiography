@@ -655,9 +655,13 @@ export const AIAssistantModal: React.FC<AIAssistantModalProps> = ({ isOpen, onCl
               <button
                 type="submit"
                 disabled={!inputQuery.trim() || isLoading}
-                className="p-3 rounded-2xl bg-gradient-to-r from-orange-500 to-amber-500 text-white hover:opacity-90 transition-all disabled:opacity-40 cursor-pointer"
+                className="btn-ai-gradient p-3 rounded-2xl text-white hover:opacity-90 transition-all disabled:opacity-40 cursor-pointer"
+                style={{
+                  backgroundColor: '#ea580c',
+                  backgroundImage: 'linear-gradient(135deg, #f97316 0%, #f59e0b 100%)',
+                }}
               >
-                <Send className="w-4 h-4" />
+                <Send className="w-4 h-4 text-white" />
               </button>
             </form>
           </div>

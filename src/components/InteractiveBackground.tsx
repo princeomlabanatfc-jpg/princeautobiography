@@ -283,15 +283,19 @@ export const InteractiveBackground: React.FC<InteractiveBackgroundProps> = ({ cu
       <div className={`fixed top-20 right-4 md:right-8 z-40 pointer-events-auto transition-all duration-300 ${
         isModalOpen ? 'opacity-0 pointer-events-none invisible -translate-y-2' : 'opacity-100'
       }`}>
-        <div className="flex items-center gap-1 p-1 bg-black/60 border border-white/15 rounded-full backdrop-blur-xl shadow-xl text-xs font-sans text-white/80">
+        <div
+          className="flex items-center gap-1 p-1 bg-black/80 border border-white/20 rounded-full backdrop-blur-xl shadow-2xl text-xs font-sans text-white/90"
+          style={{ backgroundColor: 'rgba(10, 10, 14, 0.88)' }}
+        >
           <button
             onClick={() => setAtmosphereMode('AUTO')}
             className={`px-2.5 py-1 rounded-full flex items-center gap-1 transition-all cursor-pointer ${
               atmosphereMode === 'AUTO' ? 'bg-orange-500/30 text-orange-200 border border-orange-400/40' : 'hover:text-white'
             }`}
+            style={atmosphereMode === 'AUTO' ? { backgroundColor: 'rgba(249, 115, 22, 0.35)', color: '#fed7aa' } : undefined}
             title="Auto Time Atmosphere"
           >
-            <Clock className="w-3 h-3" />
+            <Clock className="w-3 h-3 text-orange-200" />
             <span className="hidden sm:inline text-[11px]">Auto ({activeAtmosphereKey})</span>
           </button>
 
@@ -300,6 +304,7 @@ export const InteractiveBackground: React.FC<InteractiveBackgroundProps> = ({ cu
             className={`p-1.5 rounded-full transition-all cursor-pointer ${
               atmosphereMode === 'DAWN' ? 'bg-amber-500/30 text-amber-200 border border-amber-400/40' : 'hover:text-white'
             }`}
+            style={atmosphereMode === 'DAWN' ? { backgroundColor: 'rgba(245, 158, 11, 0.35)' } : undefined}
             title="Dawn Atmosphere"
           >
             <Sun className="w-3.5 h-3.5 text-amber-300" />
@@ -310,6 +315,7 @@ export const InteractiveBackground: React.FC<InteractiveBackgroundProps> = ({ cu
             className={`p-1.5 rounded-full transition-all cursor-pointer ${
               atmosphereMode === 'SUNSET' ? 'bg-orange-500/30 text-orange-200 border border-orange-400/40' : 'hover:text-white'
             }`}
+            style={atmosphereMode === 'SUNSET' ? { backgroundColor: 'rgba(249, 115, 22, 0.35)' } : undefined}
             title="Sunset Atmosphere"
           >
             <Sunset className="w-3.5 h-3.5 text-orange-400" />
@@ -320,6 +326,7 @@ export const InteractiveBackground: React.FC<InteractiveBackgroundProps> = ({ cu
             className={`p-1.5 rounded-full transition-all cursor-pointer ${
               atmosphereMode === 'MIDNIGHT' ? 'bg-indigo-500/30 text-indigo-200 border border-indigo-400/40' : 'hover:text-white'
             }`}
+            style={atmosphereMode === 'MIDNIGHT' ? { backgroundColor: 'rgba(99, 102, 241, 0.35)' } : undefined}
             title="Midnight Atmosphere"
           >
             <Moon className="w-3.5 h-3.5 text-indigo-300" />
