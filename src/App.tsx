@@ -24,15 +24,27 @@ import { Bot, Sparkles, Mail, Heart, Gift, Flower } from 'lucide-react';
 
 export default function App() {
   const [isUnlocked, setIsUnlocked] = useState<boolean>(() => {
-    return sessionStorage.getItem('anvii_prince_unlocked') === 'true';
+    try {
+      return sessionStorage.getItem('anvii_prince_unlocked') === 'true';
+    } catch {
+      return false;
+    }
   });
 
   const [showIntro, setShowIntro] = useState<boolean>(() => {
-    return sessionStorage.getItem('anvii_prince_intro_played') !== 'true';
+    try {
+      return sessionStorage.getItem('anvii_prince_intro_played') !== 'true';
+    } catch {
+      return true;
+    }
   });
 
   const [hasAgreedToRules, setHasAgreedToRules] = useState<boolean>(() => {
-    return sessionStorage.getItem('anvii_prince_rules_agreed') === 'true';
+    try {
+      return sessionStorage.getItem('anvii_prince_rules_agreed') === 'true';
+    } catch {
+      return false;
+    }
   });
 
   const [stage, setStage] = useState<Stage>('ENTRY');
@@ -49,17 +61,29 @@ export default function App() {
   // Scroll to top on stage change & reset stage modal state
   useEffect(() => {
     setIsStageModalOpen(false);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    try {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } catch {
+      window.scrollTo(0, 0);
+    }
   }, [stage]);
 
   const handleUnlock = () => {
-    sessionStorage.setItem('anvii_prince_unlocked', 'true');
+    try {
+      sessionStorage.setItem('anvii_prince_unlocked', 'true');
+    } catch (e) {
+      console.warn('Storage unavailable', e);
+    }
     setIsUnlocked(true);
     setShowIntro(true);
   };
 
   const handleCompleteIntro = () => {
-    sessionStorage.setItem('anvii_prince_intro_played', 'true');
+    try {
+      sessionStorage.setItem('anvii_prince_intro_played', 'true');
+    } catch (e) {
+      console.warn('Storage unavailable', e);
+    }
     setShowIntro(false);
   };
 
@@ -68,7 +92,11 @@ export default function App() {
       return (
         <SilentAgreementScreen 
           onAgree={() => {
-            sessionStorage.setItem('anvii_prince_rules_agreed', 'true');
+            try {
+              sessionStorage.setItem('anvii_prince_rules_agreed', 'true');
+            } catch (e) {
+              console.warn('Storage unavailable', e);
+            }
             setHasAgreedToRules(true);
           }} 
         />
