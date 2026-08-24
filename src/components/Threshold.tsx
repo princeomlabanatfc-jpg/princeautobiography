@@ -19,11 +19,11 @@ export const Threshold: React.FC<ThresholdProps> = ({ onEnter }) => {
   return (
     <div 
       id="threshold-screen"
-      className="min-h-screen w-full flex flex-col items-center justify-center relative px-6 py-12 bg-[#0a0a0c] text-[#e8e6e3] overflow-hidden"
+      className="min-h-screen min-h-[100dvh] w-full flex flex-col items-center justify-center relative px-4 sm:px-6 pt-20 pb-16 sm:py-12 bg-[#0a0a0c] text-[#e8e6e3] overflow-hidden"
     >
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] bg-orange-500/10 rounded-full blur-[130px] pointer-events-none" />
 
-      <div className="max-w-2xl w-full z-10 text-center space-y-8 p-8 md:p-12 bg-white/[0.03] border border-white/10 backdrop-blur-2xl rounded-3xl shadow-2xl">
+      <div className="max-w-2xl w-full z-10 text-center space-y-6 sm:space-y-8 p-6 sm:p-8 md:p-12 bg-[#121217]/95 border border-white/15 backdrop-blur-2xl rounded-3xl shadow-2xl">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}

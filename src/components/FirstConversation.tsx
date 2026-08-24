@@ -50,21 +50,21 @@ export const FirstConversation: React.FC<FirstConversationProps> = ({ onNextChap
   return (
     <div 
       id="first-conversation-screen"
-      className="min-h-screen w-full flex flex-col items-center justify-center relative px-6 py-12 bg-[#0a0a0c] text-[#eae5dc] overflow-hidden"
+      className="min-h-screen min-h-[100dvh] w-full flex flex-col items-center justify-center relative px-4 sm:px-6 pt-20 pb-16 sm:py-12 bg-[#0a0a0c] text-[#eae5dc] overflow-hidden"
     >
       <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-orange-500/10 rounded-full blur-[130px] pointer-events-none" />
 
       {/* Progress timeline dots */}
-      <div className="absolute top-12 flex items-center gap-3 opacity-70 z-10">
+      <div className="relative sm:absolute sm:top-16 flex items-center justify-center gap-3 opacity-90 z-10 mb-6 sm:mb-0">
         {CONVERSATION_BEATS.map((beat, idx) => (
           <div
             key={beat.id}
             className={`flex items-center justify-center rounded-full transition-all duration-500 ${
               idx === activeBeat 
-                ? 'w-7 h-7 bg-orange-200/20 border border-orange-200 text-orange-200 text-xs font-medium shadow-md backdrop-blur-md' 
+                ? 'w-7 h-7 bg-orange-500/30 border border-orange-300 text-orange-200 text-xs font-bold shadow-md backdrop-blur-md' 
                 : idx < activeBeat 
-                ? 'w-2.5 h-2.5 bg-orange-200/70' 
-                : 'w-2.5 h-2.5 bg-white/20'
+                ? 'w-2.5 h-2.5 bg-orange-400' 
+                : 'w-2.5 h-2.5 bg-white/30'
             }`}
           >
             {idx === activeBeat && (idx + 1)}
@@ -72,7 +72,7 @@ export const FirstConversation: React.FC<FirstConversationProps> = ({ onNextChap
         ))}
       </div>
 
-      <div className="max-w-2xl w-full z-10 my-auto p-8 md:p-12 bg-white/[0.03] border border-white/10 backdrop-blur-2xl rounded-3xl shadow-2xl">
+      <div className="max-w-2xl w-full z-10 my-auto p-6 sm:p-8 md:p-12 bg-[#121217]/95 border border-white/15 backdrop-blur-2xl rounded-3xl shadow-2xl">
         <AnimatePresence mode="wait">
           <motion.div
             key={activeBeat}
@@ -80,9 +80,9 @@ export const FirstConversation: React.FC<FirstConversationProps> = ({ onNextChap
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -16 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="space-y-8 text-center"
+            className="space-y-6 sm:space-y-8 text-center"
           >
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.05] border border-white/10 text-orange-200 text-xs tracking-widest uppercase backdrop-blur-md">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/[0.06] border border-white/15 text-orange-200 text-xs tracking-widest uppercase backdrop-blur-md">
               <MessageSquareQuote className="w-3.5 h-3.5 text-orange-200" />
               <span>{currentBeat.heading}</span>
             </div>
@@ -97,17 +97,21 @@ export const FirstConversation: React.FC<FirstConversationProps> = ({ onNextChap
           </motion.div>
         </AnimatePresence>
 
-        <div className="pt-10 text-center">
+        <div className="pt-8 sm:pt-10 text-center">
           <button
             onClick={handleNextBeat}
             id={`conv-step-btn-${activeBeat}`}
-            className="inline-flex items-center gap-3 px-8 py-3.5 rounded-full bg-gradient-to-r from-orange-500/80 to-amber-500/80 hover:from-orange-500 hover:to-amber-500 text-white font-sans text-xs tracking-widest uppercase font-medium shadow-lg cursor-pointer transition-all"
+            className="btn-primary-gradient inline-flex items-center gap-3 px-8 py-4 rounded-full text-white font-sans text-xs tracking-widest uppercase font-semibold shadow-2xl hover:shadow-orange-500/40 cursor-pointer transition-all"
+            style={{
+              backgroundColor: '#ea580c',
+              backgroundImage: 'linear-gradient(135deg, #f97316 0%, #f59e0b 50%, #f43f5e 100%)',
+            }}
           >
             <span>{isLast ? "Enter the 11 Acts Autobiography" : "Listen Further"}</span>
             {isLast ? (
-              <Check className="w-4 h-4 text-orange-200" />
+              <Check className="w-4 h-4 text-white" />
             ) : (
-              <ArrowRight className="w-4 h-4 text-orange-200" />
+              <ArrowRight className="w-4 h-4 text-white" />
             )}
           </button>
         </div>

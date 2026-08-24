@@ -15,19 +15,19 @@ export const Farewell: React.FC<FarewellProps> = ({ onRestart }) => {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] bg-orange-500/10 rounded-full blur-[130px] pointer-events-none" />
 
       {/* Main Content */}
-      <div className="max-w-xl w-full z-10 text-center space-y-8 my-auto p-8 md:p-12 bg-white/[0.03] border border-white/10 backdrop-blur-2xl rounded-3xl shadow-2xl">
+      <div className="max-w-xl w-full z-10 text-center space-y-8 my-auto p-6 sm:p-8 md:p-12 bg-[#121217]/95 border border-white/15 backdrop-blur-2xl rounded-3xl shadow-2xl">
         <motion.div
           initial={{ opacity: 0, scale: 0.96 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
           className="space-y-6"
         >
-          <div className="w-14 h-14 mx-auto rounded-full bg-white/[0.06] border border-white/15 flex items-center justify-center text-orange-200 shadow-lg backdrop-blur-md">
-            <Heart className="w-6 h-6 text-orange-200 fill-orange-200/20" />
+          <div className="w-14 h-14 mx-auto rounded-full bg-orange-500/15 border border-orange-400/30 flex items-center justify-center text-orange-200 shadow-lg backdrop-blur-md">
+            <Heart className="w-6 h-6 text-orange-200 fill-orange-200/40" />
           </div>
 
           <div className="space-y-3">
-            <span className="text-xs font-sans tracking-[0.3em] text-white/50 uppercase block">
+            <span className="text-xs font-sans tracking-[0.3em] text-white/60 uppercase block">
               With Deep Gratitude
             </span>
             <h2 className="font-serif text-3xl md:text-5xl text-white/95 font-light leading-snug">
@@ -36,15 +36,15 @@ export const Farewell: React.FC<FarewellProps> = ({ onRestart }) => {
             </h2>
           </div>
 
-          <p className="font-serif text-lg md:text-xl text-white/80 font-light leading-relaxed max-w-md mx-auto pt-2 italic">
+          <p className="font-serif text-lg md:text-xl text-white/90 font-light leading-relaxed max-w-md mx-auto pt-2 italic">
             "Thank you for giving your time to understand a version of me that almost nobody has ever seen."
           </p>
 
-          <p className="font-sans text-xs md:text-sm text-white/70 font-normal leading-relaxed max-w-md mx-auto">
+          <p className="font-sans text-xs md:text-sm text-white/75 font-normal leading-relaxed max-w-md mx-auto">
             Whether we speak tomorrow or move forward in quiet understanding, I am glad you know the real story now — the strengths I'm proud of, the weaknesses I'm working on, the dreams that drive me, and the thoughts that usually remain inside my own mind.
           </p>
 
-          <div className="pt-6 border-t border-white/10 max-w-xs mx-auto text-center space-y-1">
+          <div className="pt-6 border-t border-white/15 max-w-xs mx-auto text-center space-y-1">
             <span className="font-serif text-lg text-orange-200 block italic">
               Always with care & sincerity,
             </span>

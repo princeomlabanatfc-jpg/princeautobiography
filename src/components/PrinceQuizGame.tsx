@@ -660,10 +660,14 @@ export const PrinceQuizGame: React.FC<PrinceQuizGameProps> = ({ isOpen, onClose 
                     <div className="pt-3 flex justify-end">
                       <button
                         onClick={handleNext}
-                        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-orange-500 to-amber-500 text-white font-sans text-xs tracking-wider uppercase font-medium cursor-pointer"
+                        className="btn-primary-gradient inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-white font-sans text-xs tracking-wider uppercase font-semibold cursor-pointer shadow-lg"
+                        style={{
+                          backgroundColor: '#ea580c',
+                          backgroundImage: 'linear-gradient(135deg, #f97316 0%, #f59e0b 100%)',
+                        }}
                       >
                         <span>{currentIndex + 1 === QUIZ_QUESTIONS.length ? "See My Result" : "Next Question"}</span>
-                        <ArrowRight className="w-4 h-4" />
+                        <ArrowRight className="w-4 h-4 text-white" />
                       </button>
                     </div>
                   </motion.div>
@@ -709,9 +713,13 @@ export const PrinceQuizGame: React.FC<PrinceQuizGameProps> = ({ isOpen, onClose 
                   </button>
                   <button
                     onClick={onClose}
-                    className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-gradient-to-r from-orange-500 to-amber-500 text-white font-sans text-xs uppercase tracking-wider font-semibold cursor-pointer"
+                    className="btn-primary-gradient inline-flex items-center gap-2 px-6 py-2.5 rounded-full text-white font-sans text-xs uppercase tracking-wider font-semibold cursor-pointer shadow-lg"
+                    style={{
+                      backgroundColor: '#ea580c',
+                      backgroundImage: 'linear-gradient(135deg, #f97316 0%, #f59e0b 100%)',
+                    }}
                   >
-                    <Heart className="w-3.5 h-3.5 text-orange-100 fill-orange-100/40" />
+                    <Heart className="w-3.5 h-3.5 text-white fill-white/40" />
                     <span>Return to Room</span>
                   </button>
                 </div>

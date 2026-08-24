@@ -276,29 +276,37 @@ export const ReflectionSpace: React.FC<ReflectionSpaceProps> = ({ onCompleteRefl
           Reflect quietly on Arthur Aron's 36 Closeness Questions, or plant secret wish capsules on our constellation sky wall.
         </p>
 
-        {/* Tab Switcher (Suggestion #4) */}
+        {/* Tab Switcher */}
         <div className="flex items-center justify-center gap-3 pt-2">
           <button
             onClick={() => setActiveTabMode('36questions')}
-            className={`px-4 py-2 rounded-full text-xs font-sans font-medium flex items-center gap-2 transition-all cursor-pointer ${
+            className={`px-4 py-2 rounded-full text-xs font-sans font-semibold flex items-center gap-2 transition-all cursor-pointer ${
               activeTabMode === '36questions'
-                ? 'bg-gradient-to-r from-orange-500/80 to-amber-500/80 text-white border border-orange-300/40 shadow-lg'
-                : 'bg-white/5 text-white/60 hover:text-white border border-white/10'
+                ? 'btn-primary-gradient text-white border border-orange-300/40 shadow-lg'
+                : 'bg-white/10 text-white/70 hover:text-white border border-white/15'
             }`}
+            style={activeTabMode === '36questions' ? {
+              backgroundColor: '#ea580c',
+              backgroundImage: 'linear-gradient(135deg, #f97316 0%, #f59e0b 100%)',
+            } : undefined}
           >
-            <Compass className="w-3.5 h-3.5 text-orange-200" />
+            <Compass className="w-3.5 h-3.5 text-white" />
             <span>36 Closeness Questions</span>
           </button>
 
           <button
             onClick={() => setActiveTabMode('wishWall')}
-            className={`px-4 py-2 rounded-full text-xs font-sans font-medium flex items-center gap-2 transition-all cursor-pointer ${
+            className={`px-4 py-2 rounded-full text-xs font-sans font-semibold flex items-center gap-2 transition-all cursor-pointer ${
               activeTabMode === 'wishWall'
-                ? 'bg-gradient-to-r from-orange-500/80 to-amber-500/80 text-white border border-orange-300/40 shadow-lg'
-                : 'bg-white/5 text-white/60 hover:text-white border border-white/10'
+                ? 'btn-primary-gradient text-white border border-orange-300/40 shadow-lg'
+                : 'bg-white/10 text-white/70 hover:text-white border border-white/15'
             }`}
+            style={activeTabMode === 'wishWall' ? {
+              backgroundColor: '#ea580c',
+              backgroundImage: 'linear-gradient(135deg, #f97316 0%, #f59e0b 100%)',
+            } : undefined}
           >
-            <Stars className="w-3.5 h-3.5 text-orange-200" />
+            <Stars className="w-3.5 h-3.5 text-white" />
             <span>Constellation Wish Wall ({capsules.length})</span>
           </button>
         </div>
@@ -690,10 +698,14 @@ export const ReflectionSpace: React.FC<ReflectionSpaceProps> = ({ onCompleteRefl
         <button
           onClick={onCompleteReflection}
           id="reflection-move-farewell-btn"
-          className="w-full inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-white/5 hover:bg-white/10 border border-white/15 text-white/80 hover:text-white font-sans text-xs tracking-widest uppercase font-medium transition-all cursor-pointer group"
+          className="btn-primary-gradient w-full inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full text-white font-sans text-xs tracking-widest uppercase font-semibold shadow-2xl hover:shadow-orange-500/40 transition-all cursor-pointer group"
+          style={{
+            backgroundColor: '#ea580c',
+            backgroundImage: 'linear-gradient(135deg, #f97316 0%, #f59e0b 50%, #ea580c 100%)',
+          }}
         >
           <span>Move to Final Farewell</span>
-          <ArrowRight className="w-4 h-4 text-orange-200 group-hover:translate-x-1 transition-transform" />
+          <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform" />
         </button>
       </div>
     </div>

@@ -280,23 +280,23 @@ export const InteractiveBackground: React.FC<InteractiveBackgroundProps> = ({ cu
       </div>
 
       {/* Floating Time-Adaptive Atmosphere Control Widget */}
-      <div className={`fixed top-20 right-4 md:right-8 z-40 pointer-events-auto transition-all duration-300 ${
+      <div className={`fixed top-16 sm:top-20 right-3 sm:right-6 md:right-8 z-30 pointer-events-auto transition-all duration-300 ${
         isModalOpen ? 'opacity-0 pointer-events-none invisible -translate-y-2' : 'opacity-100'
       }`}>
         <div
-          className="flex items-center gap-1 p-1 bg-black/80 border border-white/20 rounded-full backdrop-blur-xl shadow-2xl text-xs font-sans text-white/90"
-          style={{ backgroundColor: 'rgba(10, 10, 14, 0.88)' }}
+          className="flex items-center gap-0.5 sm:gap-1 p-1 bg-black/85 border border-white/20 rounded-full backdrop-blur-xl shadow-2xl text-xs font-sans text-white/90"
+          style={{ backgroundColor: 'rgba(10, 10, 14, 0.92)' }}
         >
           <button
             onClick={() => setAtmosphereMode('AUTO')}
-            className={`px-2.5 py-1 rounded-full flex items-center gap-1 transition-all cursor-pointer ${
+            className={`px-2 sm:px-2.5 py-1 rounded-full flex items-center gap-1 transition-all cursor-pointer ${
               atmosphereMode === 'AUTO' ? 'bg-orange-500/30 text-orange-200 border border-orange-400/40' : 'hover:text-white'
             }`}
             style={atmosphereMode === 'AUTO' ? { backgroundColor: 'rgba(249, 115, 22, 0.35)', color: '#fed7aa' } : undefined}
             title="Auto Time Atmosphere"
           >
             <Clock className="w-3 h-3 text-orange-200" />
-            <span className="hidden sm:inline text-[11px]">Auto ({activeAtmosphereKey})</span>
+            <span className="text-[10px] sm:text-[11px]">Auto</span>
           </button>
 
           <button

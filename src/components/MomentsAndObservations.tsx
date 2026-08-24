@@ -1193,10 +1193,14 @@ export const MomentsAndObservations: React.FC<MomentsAndObservationsProps> = ({ 
         <button
           onClick={onCompleteMoments}
           id="moments-continue-to-reflection-btn"
-          className="w-full inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-orange-500/80 via-amber-500/80 to-rose-500/80 hover:from-orange-500 hover:to-rose-500 text-white font-sans text-xs tracking-widest uppercase font-medium shadow-xl hover:shadow-orange-500/20 transition-all cursor-pointer group"
+          className="btn-primary-gradient w-full inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full text-white font-sans text-xs tracking-widest uppercase font-semibold shadow-2xl hover:shadow-orange-500/40 transition-all cursor-pointer group"
+          style={{
+            backgroundColor: '#ea580c',
+            backgroundImage: 'linear-gradient(135deg, #f97316 0%, #f59e0b 50%, #f43f5e 100%)',
+          }}
         >
           <span>{allDiscovered ? "Enter Reflection Space" : "Continue to Reflection"}</span>
-          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          <ArrowRight className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform" />
         </button>
       </div>
     </div>

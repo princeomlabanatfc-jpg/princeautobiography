@@ -612,7 +612,11 @@ export const AutobiographyReader: React.FC<AutobiographyReaderProps> = ({
               <button
                 onClick={handleNextBeat}
                 id="beat-nav-bottom-next"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-orange-200/20 border border-orange-200/40 text-orange-200 hover:bg-orange-200/30 transition-all cursor-pointer text-xs uppercase tracking-widest font-medium shadow-lg"
+                className="btn-primary-gradient w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full text-white transition-all cursor-pointer text-xs uppercase tracking-widest font-semibold shadow-xl hover:shadow-orange-500/30"
+                style={{
+                  backgroundColor: '#ea580c',
+                  backgroundImage: 'linear-gradient(135deg, #f97316 0%, #f59e0b 50%, #f43f5e 100%)',
+                }}
               >
                 <span>
                   {currentBeatIdx < currentAct.beats.length - 1
@@ -621,7 +625,7 @@ export const AutobiographyReader: React.FC<AutobiographyReaderProps> = ({
                     ? `Begin ${ALL_ACTS[currentActIdx + 1].kicker}`
                     : "Journey Complete"}
                 </span>
-                <ChevronRight className="w-4 h-4" />
+                <ChevronRight className="w-4 h-4 text-white" />
               </button>
             </div>
           </motion.article>
