@@ -1,11 +1,12 @@
 import React from 'react';
 import { Stage } from '../types';
-import { Heart, Play } from 'lucide-react';
+import { Heart, Play, FileDown } from 'lucide-react';
 
 interface InvisibleHeaderProps {
   currentStage: Stage;
   onSelectStage: (stage: Stage) => void;
   onReplayIntro?: () => void;
+  onOpenDownloadPDF?: () => void;
   onOpenLetters?: () => void;
   onOpenQuiz?: () => void;
   onOpenHeartMath?: () => void;
@@ -29,6 +30,7 @@ export const InvisibleHeader: React.FC<InvisibleHeaderProps> = ({
   currentStage,
   onSelectStage,
   onReplayIntro,
+  onOpenDownloadPDF,
   isHidden = false
 }) => {
   return (
@@ -64,8 +66,20 @@ export const InvisibleHeader: React.FC<InvisibleHeaderProps> = ({
         })}
       </div>
 
-      {/* Replay Intro */}
+      {/* Right Action Buttons */}
       <div className="pointer-events-auto flex items-center gap-2">
+        {onOpenDownloadPDF && (
+          <button
+            onClick={onOpenDownloadPDF}
+            id="header-download-pdf-btn"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/[0.06] hover:bg-white/[0.12] border border-white/15 text-orange-200 hover:text-white text-[11px] font-sans tracking-wider font-semibold backdrop-blur-md transition-all cursor-pointer shadow-md"
+            title="Download Complete 11 Acts in PDF format"
+          >
+            <FileDown className="w-3.5 h-3.5 text-orange-300" />
+            <span className="hidden sm:inline">11 Acts PDF</span>
+          </button>
+        )}
+
         {onReplayIntro && (
           <button
             onClick={onReplayIntro}

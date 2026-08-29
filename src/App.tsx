@@ -19,6 +19,7 @@ import { PrinceQuizGame } from './components/PrinceQuizGame';
 import { HeartMathModal } from './components/HeartMathModal';
 import { Reasons100Modal } from './components/Reasons100Modal';
 import { RosePetalShower } from './components/RosePetalShower';
+import { DownloadPDFModal } from './components/DownloadPDFModal';
 import { motion, AnimatePresence } from 'motion/react';
 import { Bot, Sparkles, Mail, Heart, Gift, Flower } from 'lucide-react';
 
@@ -54,9 +55,10 @@ export default function App() {
   const [isHeartMathOpen, setIsHeartMathOpen] = useState(false);
   const [isReasonsOpen, setIsReasonsOpen] = useState(false);
   const [isRoseShowerActive, setIsRoseShowerActive] = useState(false);
+  const [isDownloadPDFOpen, setIsDownloadPDFOpen] = useState(false);
   const [isStageModalOpen, setIsStageModalOpen] = useState(false);
 
-  const isAnyModalOpen = isAIAssistantOpen || isOpenWhenOpen || isQuizOpen || isHeartMathOpen || isReasonsOpen || isRoseShowerActive || isStageModalOpen;
+  const isAnyModalOpen = isAIAssistantOpen || isOpenWhenOpen || isQuizOpen || isHeartMathOpen || isReasonsOpen || isRoseShowerActive || isDownloadPDFOpen || isStageModalOpen;
 
   // Scroll to top on stage change & reset stage modal state
   useEffect(() => {
@@ -194,6 +196,7 @@ export default function App() {
         currentStage={stage}
         onSelectStage={(newStage) => setStage(newStage)}
         onReplayIntro={() => setShowIntro(true)}
+        onOpenDownloadPDF={() => setIsDownloadPDFOpen(true)}
         onOpenLetters={() => setIsOpenWhenOpen(true)}
         onOpenQuiz={() => setIsQuizOpen(true)}
         onOpenHeartMath={() => setIsHeartMathOpen(true)}
@@ -325,6 +328,12 @@ export default function App() {
         isActive={isRoseShowerActive}
         onClose={() => setIsRoseShowerActive(false)}
         onTriggerShower={() => setIsRoseShowerActive(true)}
+      />
+
+      {/* Complete 11 Acts PDF Download Modal */}
+      <DownloadPDFModal
+        isOpen={isDownloadPDFOpen}
+        onClose={() => setIsDownloadPDFOpen(false)}
       />
     </div>
   );

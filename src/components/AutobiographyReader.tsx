@@ -7,8 +7,9 @@ import {
   BookOpen, Search, Bookmark, ChevronLeft, ChevronRight, 
   Sparkles, Quote, Share2, Volume2, VolumeX, Menu, X, 
   Heart, Compass, Eye, Shield, Feather, Check, ArrowUpRight,
-  Maximize2, Image as ImageIcon, ZoomIn, ZoomOut
+  Maximize2, Image as ImageIcon, ZoomIn, ZoomOut, FileDown
 } from 'lucide-react';
+import { DownloadPDFModal } from './DownloadPDFModal';
 import journalPageImg from '../assets/images/JournalPage.jpeg';
 import dailyTasksImg from '../assets/images/DailyTasks.jpeg';
 import olqImg from '../assets/images/olq.jpeg';
@@ -49,6 +50,7 @@ export const AutobiographyReader: React.FC<AutobiographyReaderProps> = ({
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
+  const [isPDFModalOpen, setIsPDFModalOpen] = useState<boolean>(false);
   const [selectedImageIdx, setSelectedImageIdx] = useState<number | null>(null);
   const [isZoomed, setIsZoomed] = useState<boolean>(false);
 
@@ -56,8 +58,8 @@ export const AutobiographyReader: React.FC<AutobiographyReaderProps> = ({
   const currentBeat: BeatData = currentAct.beats[currentBeatIdx] || currentAct.beats[0];
 
   useEffect(() => {
-    onModalToggle?.(isSearchOpen || isDrawerOpen || selectedImageIdx !== null);
-  }, [isSearchOpen, isDrawerOpen, selectedImageIdx, onModalToggle]);
+    onModalToggle?.(isSearchOpen || isDrawerOpen || isPDFModalOpen || selectedImageIdx !== null);
+  }, [isSearchOpen, isDrawerOpen, isPDFModalOpen, selectedImageIdx, onModalToggle]);
 
   // Keyboard navigation for full-screen image lightbox
   useEffect(() => {
@@ -275,6 +277,16 @@ export const AutobiographyReader: React.FC<AutobiographyReaderProps> = ({
           <Search className="w-4 h-4" />
         </button>
 
+        {/* Download PDF Modal Toggle */}
+        <button
+          onClick={() => setIsPDFModalOpen(true)}
+          id="reader-pdf-download-toggle"
+          className="p-2 rounded-full hover:bg-white/10 text-orange-300 hover:text-orange-200 transition-all cursor-pointer focus:outline-none"
+          title="Download Complete 11 Acts in PDF format"
+        >
+          <FileDown className="w-4 h-4" />
+        </button>
+
         {/* Previous / Next Beat Arrows */}
         <div className="flex items-center gap-1">
           <button
@@ -307,7 +319,18 @@ export const AutobiographyReader: React.FC<AutobiographyReaderProps> = ({
               <Compass className="w-4 h-4 text-orange-200 animate-spin-slow" />
               <span>The {ALL_ACTS.length} Acts Constellation Map</span>
             </span>
-            <span className="text-white/50 lowercase font-normal">Act {currentActIdx + 1} of {ALL_ACTS.length} Active</span>
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => setIsPDFModalOpen(true)}
+                id="constellation-download-pdf-btn"
+                className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-orange-500/15 hover:bg-orange-500/25 border border-orange-400/30 text-orange-200 text-[11px] font-sans font-semibold transition-all cursor-pointer shadow-sm"
+                title="Download 11 Acts PDF Book"
+              >
+                <FileDown className="w-3.5 h-3.5 text-orange-300" />
+                <span className="hidden sm:inline">Download PDF</span>
+              </button>
+              <span className="text-white/50 lowercase font-normal hidden sm:inline">Act {currentActIdx + 1} of {ALL_ACTS.length} Active</span>
+            </div>
           </div>
 
           {/* Node Stars Container */}
@@ -660,6 +683,34 @@ export const AutobiographyReader: React.FC<AutobiographyReaderProps> = ({
                   </button>
                 </div>
 
+                {/* PDF & Complete Archive Download Banner in Drawer */}
+                <div className="p-4 rounded-2xl bg-gradient-to-r from-orange-950/40 via-amber-950/20 to-black/40 border border-orange-500/30 space-y-2.5">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] font-sans tracking-widest text-orange-300 uppercase font-semibold">
+                      Complete Archive
+                    </span>
+                    <span className="text-[10px] text-white/50 font-mono">11 Acts • 55 Ch.</span>
+                  </div>
+                  <p className="text-xs text-white/80 font-sans leading-relaxed">
+                    Download the unabridged 11 Acts book in publication-grade PDF format or copy full structured text.
+                  </p>
+                  <button
+                    onClick={() => {
+                      setIsDrawerOpen(false);
+                      setIsPDFModalOpen(true);
+                    }}
+                    id="drawer-download-pdf-btn"
+                    className="btn-primary-gradient w-full py-2.5 px-4 rounded-xl text-white text-xs font-sans font-bold flex items-center justify-center gap-2 cursor-pointer shadow-lg hover:shadow-orange-500/25 transition-all"
+                    style={{
+                      backgroundColor: '#ea580c',
+                      backgroundImage: 'linear-gradient(135deg, #f97316 0%, #f59e0b 100%)',
+                    }}
+                  >
+                    <FileDown className="w-4 h-4 text-white" />
+                    <span>Download 11 Acts (PDF)</span>
+                  </button>
+                </div>
+
                 {/* Act List */}
                 <div className="space-y-3">
                   {ALL_ACTS.map((act, aIdx) => {
@@ -902,6 +953,12 @@ export const AutobiographyReader: React.FC<AutobiographyReaderProps> = ({
           </div>
         )}
       </AnimatePresence>
+      {/* Download PDF Modal */}
+      <DownloadPDFModal
+        isOpen={isPDFModalOpen}
+        onClose={() => setIsPDFModalOpen(false)}
+        currentActIndex={currentActIdx}
+      />
     </div>
   );
 };
