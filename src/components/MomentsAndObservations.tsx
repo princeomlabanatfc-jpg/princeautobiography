@@ -14,25 +14,16 @@ import { TheLifeImBuilding } from './TheLifeImBuilding';
 import imgJournal33 from '../assets/images/JournalPage.jpeg';
 import imgDailyTasks from '../assets/images/DailyTasks.jpeg';
 import imgOLQs from '../assets/images/olq.jpeg';
-import imgAnviiPink from '../assets/images/anviiphoto.png';
 import imgInstagramChat from '../assets/images/marriagechat.png';
-import imgIshqWalaLove from '../assets/images/couplephoto.png';
 import imgTFCMars from '../assets/images/tfclogo.png';
 import imgPrinceFocus from '../assets/images/princephoto.jpeg';
-import imgAnvii1 from '../assets/images/Anvii1.jpeg';
-import imgAnvii2 from '../assets/images/Anvii2.jpeg';
-import imgAnvii3 from '../assets/images/Anvii3.jpeg';
-import imgAnvii4 from '../assets/images/Anvii4.jpeg';
-import imgAnvii5 from '../assets/images/Anvii5.jpeg';
-import imgAnvii6 from '../assets/images/Anvii6.jpg';
-import imgAnvii7 from '../assets/images/Anvii7.jpg';
 
 export interface PolaroidMemory {
   id: string;
   title: string;
   date: string;
   location: string;
-  tag: 'Journal' | 'OLQs' | 'TFC Vision' | 'Anvii' | 'Chat Memory' | 'Prince';
+  tag: 'Journal' | 'OLQs' | 'TFC Vision' | 'Chat Memory' | 'Prince';
   imageUrl: string;
   frontCaption: string;
   backNote: string;
@@ -75,94 +66,6 @@ const INITIAL_POLAROIDS: PolaroidMemory[] = [
     likes: 52
   },
   {
-    id: 'pol-4',
-    title: 'Anvii\'s Grace in Pink Dress',
-    date: 'Special Evening',
-    location: 'PCP Function',
-    tag: 'Anvii',
-    imageUrl: imgAnviiPink,
-    frontCaption: 'Anvii standing gracefully in traditional pink lehenga.',
-    backNote: 'A cherished moment captured in time—Anvii standing in her traditional pink dress during an evening function where quiet memories were forged.',
-    likes: 76
-  },
-  {
-    id: 'pol-anvii-1',
-    title: 'Anvii — Midnight Car Ride',
-    date: 'Evening Breeze',
-    location: 'Car Passenger Seat',
-    tag: 'Anvii',
-    imageUrl: imgAnvii1,
-    frontCaption: 'Looking out at the night lights, calm and effortless.',
-    backNote: 'A candid frame of Anvii during a quiet evening drive, her hair caught in the soft city glow and tranquil night breeze.',
-    likes: 89
-  },
-  {
-    id: 'pol-anvii-2',
-    title: 'Anvii — Mirror Reflection & Butterfly Pendant',
-    date: 'Aesthetic Capture',
-    location: 'Special Day',
-    tag: 'Anvii',
-    imageUrl: imgAnvii2,
-    frontCaption: 'Quiet elegance in brown, pearl bracelet and butterfly glow.',
-    backNote: 'An effortless mirror capture reflecting poise, quiet confidence, and her delicate butterfly pendant.',
-    likes: 94
-  },
-  {
-    id: 'pol-anvii-3',
-    title: 'Anvii — Wavy Silhouette in Royal Blue',
-    date: 'Celebration Night',
-    location: 'Evening Gathering',
-    tag: 'Anvii',
-    imageUrl: imgAnvii3,
-    frontCaption: 'A timeless silhouette with soft waves and subtle grace.',
-    backNote: 'Softly blurred in motion, a cinematic memory in deep royal blue that speaks with understated charm.',
-    likes: 91
-  },
-  {
-    id: 'pol-anvii-4',
-    title: 'Anvii — Floral & Warm Reflections',
-    date: 'Golden Glow',
-    location: 'Studio Mirror',
-    tag: 'Anvii',
-    imageUrl: imgAnvii4,
-    frontCaption: 'Warm hues, orchids, and a candid glance through the frame.',
-    backNote: 'Captured amidst warm evening ambiance and floral accents—a relaxed, natural expression of beauty.',
-    likes: 88
-  },
-  {
-    id: 'pol-anvii-5',
-    title: 'Anvii — Royal Navy Blue Saree & Mehendi',
-    date: 'Festive Celebration',
-    location: 'Traditional Function',
-    tag: 'Anvii',
-    imageUrl: imgAnvii5,
-    frontCaption: 'Traditional grace in starry navy blue and intricate mehendi.',
-    backNote: 'Sitting gracefully in an embellished dark navy blue saree with mehendi on her hands—pure timeless elegance captured in one frame.',
-    likes: 112
-  },
-  {
-    id: 'pol-anvii-6',
-    title: 'Anvii — Graceful Portrait',
-    date: 'Special Memory',
-    location: 'Cherished Moment',
-    tag: 'Anvii',
-    imageUrl: imgAnvii6,
-    frontCaption: 'A beautiful candid moment of Anvii, full of poise and warmth.',
-    backNote: 'A special portrait of Anvii adding to our cherished collection of timeless memories.',
-    likes: 105
-  },
-  {
-    id: 'pol-anvii-7',
-    title: 'Anvii — Radiance & Elegance',
-    date: 'Unforgettable Memory',
-    location: 'Special Moment',
-    tag: 'Anvii',
-    imageUrl: imgAnvii7,
-    frontCaption: 'A captivating frame capturing Anvii\'s natural glow and timeless smile.',
-    backNote: 'Another priceless memory of Anvii preserved forever in the visual archive of our story.',
-    likes: 118
-  },
-  {
     id: 'pol-5',
     title: 'The Marriage Chat Memory (Instagram)',
     date: 'Instagram Chat (@againanvi)',
@@ -172,17 +75,6 @@ const INITIAL_POLAROIDS: PolaroidMemory[] = [
     frontCaption: 'Anvii: "Baat krti hu shaadi ki" | Prince: "1/infinite bhi hoga na toh bhi try karunga"',
     backNote: 'Anvii: "No de tere papa ke, Baat krti hu shaadi ki" | Prince: "1/infinite bhi hoga na toh bhi try karunga" | Anvii: "Haaa chl baat krte h Direct papa mummy se". A moment of raw truth and laughter.',
     likes: 98
-  },
-  {
-    id: 'pol-6',
-    title: 'Ishq Wala Love — Prince & Anvii',
-    date: 'Shared Memory',
-    location: 'Evening Gathering',
-    tag: 'Anvii',
-    imageUrl: imgIshqWalaLove,
-    frontCaption: 'Ishq Wala Love (Student of the Year) — Prince & Anvii',
-    backNote: 'Prince in his black shirt and Anvii in her pink dress, framed with the "Ishq Wala Love" song overlay.',
-    likes: 84
   },
   {
     id: 'pol-7',
@@ -222,20 +114,23 @@ export const MomentsAndObservations: React.FC<MomentsAndObservationsProps> = ({ 
   const [viewMode, setViewMode] = useState<'turningPoints' | 'polaroidGallery'>('turningPoints');
   const [polaroids, setPolaroids] = useState<PolaroidMemory[]>(() => {
     try {
-      const saved = localStorage.getItem('anvii_prince_polaroids_v9');
+      // Clean up all legacy storage keys that could contain cached photos of Anvii or the Ishq Wala Love memory
+      ['anvii_prince_polaroids_v9', 'anvii_prince_polaroids_v8', 'anvii_prince_polaroids_v7', 'anvii_prince_polaroids_v6', 'anvii_prince_polaroids_v5'].forEach(k => {
+        try { localStorage.removeItem(k); } catch (_) {}
+      });
+
+      const saved = localStorage.getItem('anvii_prince_polaroids_v10');
       if (saved) {
         const parsed = JSON.parse(saved);
-        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
-      }
-      // Migrate from older local storage version to preserve any custom added polaroids
-      const prevSaved = localStorage.getItem('anvii_prince_polaroids_v8') || localStorage.getItem('anvii_prince_polaroids_v7') || localStorage.getItem('anvii_prince_polaroids_v6');
-      if (prevSaved) {
-        const parsed = JSON.parse(prevSaved);
-        if (Array.isArray(parsed)) {
-          const customOnly = parsed.filter((p: PolaroidMemory) => p.isCustom);
-          if (customOnly.length > 0) {
-            return [...INITIAL_POLAROIDS, ...customOnly];
-          }
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          return parsed.filter((p: PolaroidMemory) => 
+            !p.id.includes('anvii') &&
+            p.id !== 'pol-4' &&
+            p.id !== 'pol-6' &&
+            !p.title?.toLowerCase().includes('ishq wala') &&
+            !p.backNote?.toLowerCase().includes('ishq wala') &&
+            !p.backNote?.toLowerCase().includes('pink dress')
+          );
         }
       }
     } catch (e) {
@@ -261,7 +156,7 @@ export const MomentsAndObservations: React.FC<MomentsAndObservationsProps> = ({ 
   const [newTitle, setNewTitle] = useState('');
   const [newLocation, setNewLocation] = useState('');
   const [newDate, setNewDate] = useState('');
-  const [newTag, setNewTag] = useState<PolaroidMemory['tag']>('Anvii');
+  const [newTag, setNewTag] = useState<PolaroidMemory['tag']>('Journal');
   const [newImgUrl, setNewImgUrl] = useState('');
   const [imageFilePreview, setImageFilePreview] = useState<string>('');
   const [isDragging, setIsDragging] = useState(false);
@@ -364,7 +259,7 @@ export const MomentsAndObservations: React.FC<MomentsAndObservationsProps> = ({ 
   useEffect(() => {
     try {
       const persistent = polaroids.filter(p => !p.imageUrl.startsWith('blob:'));
-      localStorage.setItem('anvii_prince_polaroids_v9', JSON.stringify(persistent));
+      localStorage.setItem('anvii_prince_polaroids_v10', JSON.stringify(persistent));
     } catch (e) {
       console.warn('Failed saving polaroids', e);
     }
@@ -489,7 +384,7 @@ export const MomentsAndObservations: React.FC<MomentsAndObservationsProps> = ({ 
     setPolaroids(prev => prev.filter(p => p.id !== id));
   };
 
-  const polaroidTags = ['All', 'Journal', 'OLQs', 'TFC Vision', 'Anvii', 'Chat Memory', 'Prince'];
+  const polaroidTags = ['All', 'Journal', 'OLQs', 'TFC Vision', 'Chat Memory', 'Prince'];
   const filteredPolaroids = polaroids.filter(p => polaroidFilter === 'All' || p.tag === polaroidFilter);
 
   const handlePrevLightbox = (e?: React.MouseEvent) => {
@@ -1130,7 +1025,6 @@ export const MomentsAndObservations: React.FC<MomentsAndObservationsProps> = ({ 
                       onChange={(e) => setNewTag(e.target.value as any)}
                       className="w-full bg-[#181824] border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-orange-400"
                     >
-                      <option value="Anvii">Anvii</option>
                       <option value="Journal">Journal</option>
                       <option value="OLQs">OLQs</option>
                       <option value="TFC Vision">TFC Vision</option>

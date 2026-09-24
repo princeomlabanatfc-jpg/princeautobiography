@@ -2,12 +2,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   X, Play, Pause, RotateCcw, Volume2, VolumeX, Sparkles, 
-  Download, Heart, Music, Sliders, Layers, RefreshCw,
-  Image as ImageIcon
+  Download, Heart, Music, Sliders, Layers, RefreshCw
 } from 'lucide-react';
 
-import imgCouplePhoto from '../assets/images/couplephoto.png';
-import imgAnviiPhoto from '../assets/images/anviiphoto.png';
 import imgPrincePhoto from '../assets/images/princephoto.jpeg';
 
 interface HeartMathModalProps {
@@ -47,21 +44,9 @@ export const HeartMathModal: React.FC<HeartMathModalProps> = ({ isOpen, onClose 
   const [paletteMode, setPaletteMode] = useState<PaletteMode>('RAINBOW');
   const [rayCount, setRayCount] = useState<number>(216);
   const [speedMultiplier, setSpeedMultiplier] = useState<number>(0.25);
-  const [showPhoto, setShowPhoto] = useState<boolean>(true);
   const [showBouncingText, setShowBouncingText] = useState<boolean>(true);
   const [progress, setProgress] = useState(0); // 0 to 1 sweep
   const [isComplete, setIsComplete] = useState(false);
-
-  // Loaded image ref for couple photo
-  const coupleImageRef = useRef<HTMLImageElement | null>(null);
-
-  useEffect(() => {
-    const img = new Image();
-    img.src = imgCouplePhoto;
-    img.onload = () => {
-      coupleImageRef.current = img;
-    };
-  }, []);
 
   // Audio Context ref for synthesizer chimes
   const audioCtxRef = useRef<AudioContext | null>(null);
@@ -293,47 +278,6 @@ export const HeartMathModal: React.FC<HeartMathModalProps> = ({ isOpen, onClose 
         ctx.restore();
       }
 
-      // DRAW COUPLE PHOTO INSIDE/BEHIND THE HEART SHAPE
-      if (showPhoto && coupleImageRef.current && localProgress > 0.2) {
-        const photoAlpha = Math.min(0.85, (localProgress - 0.2) * 1.2);
-        
-        ctx.save();
-        ctx.globalAlpha = photoAlpha;
-
-        // Create Heart Clip Path
-        ctx.beginPath();
-        for (let step = 0; step <= 100; step++) {
-          const t = (step / 100) * Math.PI * 2;
-          const pt = getHeartPoint(t, effectiveScale * 0.92, cx, cy);
-          if (step === 0) ctx.moveTo(pt.x, pt.y);
-          else ctx.lineTo(pt.x, pt.y);
-        }
-        ctx.closePath();
-        ctx.clip();
-
-        // Draw couple photo scaled inside clipped heart
-        const img = coupleImageRef.current;
-        const imgAspect = img.width / img.height;
-        const boxSize = effectiveScale * 32;
-        let drawW = boxSize;
-        let drawH = boxSize / imgAspect;
-        if (drawH < boxSize) {
-          drawH = boxSize;
-          drawW = boxSize * imgAspect;
-        }
-
-        ctx.drawImage(img, cx - drawW / 2, cy - drawH / 2, drawW, drawH);
-
-        // Soft romantic radial overlay on top of photo
-        const overlayGrad = ctx.createRadialGradient(cx, cy, 10, cx, cy, boxSize / 1.5);
-        overlayGrad.addColorStop(0, 'rgba(255, 64, 129, 0.15)');
-        overlayGrad.addColorStop(1, 'rgba(10, 5, 20, 0.6)');
-        ctx.fillStyle = overlayGrad;
-        ctx.fillRect(cx - boxSize, cy - boxSize, boxSize * 2, boxSize * 2);
-
-        ctx.restore();
-      }
-
       // Pre-calculate ray points around parametric t range [-PI to PI]
       const rayPoints: { x: number; y: number; angle: number; color: string }[] = [];
 
@@ -495,7 +439,7 @@ export const HeartMathModal: React.FC<HeartMathModalProps> = ({ isOpen, onClose 
                 </span>
               </h2>
               <p className="text-xs text-white/50 font-sans">
-                Sweeping flower rays, real couple photo reveal & bouncing ANVII typography
+                Sweeping flower rays, mathematical cardioid art & bouncing ANVII typography
               </p>
             </div>
           </div>
@@ -520,10 +464,10 @@ export const HeartMathModal: React.FC<HeartMathModalProps> = ({ isOpen, onClose 
           </div>
         </div>
 
-        {/* Floating Side Couple Avatars */}
+        {/* Floating Side Badges */}
         <div className="absolute top-20 left-6 z-30 hidden lg:flex flex-col items-center gap-2 bg-black/40 p-2.5 rounded-2xl border border-white/10 backdrop-blur-md shadow-2xl">
-          <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-pink-400 p-0.5 bg-black">
-            <img src={imgAnviiPhoto} alt="Anvii" className="w-full h-full object-cover rounded-full" />
+          <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-pink-400 p-0.5 bg-gradient-to-br from-pink-500/20 to-purple-600/30 flex items-center justify-center">
+            <Heart className="w-5 h-5 text-pink-300 fill-pink-400/40" />
           </div>
           <span className="text-[10px] font-bold text-pink-300 tracking-wider">ANVII</span>
         </div>
@@ -585,20 +529,8 @@ export const HeartMathModal: React.FC<HeartMathModalProps> = ({ isOpen, onClose 
             </button>
           </div>
 
-          {/* Feature Toggles (Couple Photo & Bouncing Text) */}
+          {/* Feature Toggle (Bouncing Text) */}
           <div className="flex items-center gap-2">
-            <button
-              onClick={() => setShowPhoto(!showPhoto)}
-              className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all cursor-pointer border flex items-center gap-1.5 ${
-                showPhoto 
-                  ? 'bg-pink-500/20 text-pink-300 border-pink-400/40' 
-                  : 'bg-white/5 text-white/40 border-white/10'
-              }`}
-            >
-              <ImageIcon className="w-3.5 h-3.5" />
-              <span>Couple Photo</span>
-            </button>
-
             <button
               onClick={() => setShowBouncingText(!showBouncingText)}
               className={`px-3 py-1.5 rounded-full text-xs font-medium transition-all cursor-pointer border flex items-center gap-1.5 ${
