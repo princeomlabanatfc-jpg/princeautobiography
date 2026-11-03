@@ -17,13 +17,14 @@ import imgOLQs from '../assets/images/olq.jpeg';
 import imgInstagramChat from '../assets/images/marriagechat.png';
 import imgTFCMars from '../assets/images/tfclogo.png';
 import imgPrinceFocus from '../assets/images/princephoto.jpeg';
+import imgAnviiPinkSaree from '../assets/images/Anvii_pink_saree.jpg';
 
 export interface PolaroidMemory {
   id: string;
   title: string;
   date: string;
   location: string;
-  tag: 'Journal' | 'OLQs' | 'TFC Vision' | 'Chat Memory' | 'Prince';
+  tag: 'Journal' | 'OLQs' | 'TFC Vision' | 'Chat Memory' | 'Prince' | 'Anvii';
   imageUrl: string;
   frontCaption: string;
   backNote: string;
@@ -64,6 +65,17 @@ const INITIAL_POLAROIDS: PolaroidMemory[] = [
     frontCaption: '15 Officer Like Qualities — Courage, Stamina, Social Adaptability.',
     backNote: 'Self-training list signed by Prince L: Courage, Stamina, Initiative, Liveliness, Cooperation, Determination, Self-confidence, Speed of decision, Organising ability, Power of expression.',
     likes: 52
+  },
+  {
+    id: 'pol-4',
+    title: 'Anvii in Pink Saree',
+    date: 'Cherished Memory',
+    location: 'Timeless Elegance',
+    tag: 'Anvii',
+    imageUrl: imgAnviiPinkSaree,
+    frontCaption: 'Anvii in her pink saree — Grace, warmth, and an unforgettable smile.',
+    backNote: 'A moment captured in timeless elegance. Wearing the delicate blush pink saree with subtle golden accents, radiating gentle grace and the quiet dignity that has always defined her presence.',
+    likes: 142
   },
   {
     id: 'pol-5',
@@ -114,23 +126,11 @@ export const MomentsAndObservations: React.FC<MomentsAndObservationsProps> = ({ 
   const [viewMode, setViewMode] = useState<'turningPoints' | 'polaroidGallery'>('turningPoints');
   const [polaroids, setPolaroids] = useState<PolaroidMemory[]>(() => {
     try {
-      // Clean up all legacy storage keys that could contain cached photos of Anvii or the Ishq Wala Love memory
-      ['anvii_prince_polaroids_v9', 'anvii_prince_polaroids_v8', 'anvii_prince_polaroids_v7', 'anvii_prince_polaroids_v6', 'anvii_prince_polaroids_v5'].forEach(k => {
-        try { localStorage.removeItem(k); } catch (_) {}
-      });
-
-      const saved = localStorage.getItem('anvii_prince_polaroids_v10');
+      const saved = localStorage.getItem('anvii_prince_polaroids_v12');
       if (saved) {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed) && parsed.length > 0) {
-          return parsed.filter((p: PolaroidMemory) => 
-            !p.id.includes('anvii') &&
-            p.id !== 'pol-4' &&
-            p.id !== 'pol-6' &&
-            !p.title?.toLowerCase().includes('ishq wala') &&
-            !p.backNote?.toLowerCase().includes('ishq wala') &&
-            !p.backNote?.toLowerCase().includes('pink dress')
-          );
+          return parsed;
         }
       }
     } catch (e) {
@@ -259,7 +259,7 @@ export const MomentsAndObservations: React.FC<MomentsAndObservationsProps> = ({ 
   useEffect(() => {
     try {
       const persistent = polaroids.filter(p => !p.imageUrl.startsWith('blob:'));
-      localStorage.setItem('anvii_prince_polaroids_v10', JSON.stringify(persistent));
+      localStorage.setItem('anvii_prince_polaroids_v12', JSON.stringify(persistent));
     } catch (e) {
       console.warn('Failed saving polaroids', e);
     }
@@ -384,7 +384,7 @@ export const MomentsAndObservations: React.FC<MomentsAndObservationsProps> = ({ 
     setPolaroids(prev => prev.filter(p => p.id !== id));
   };
 
-  const polaroidTags = ['All', 'Journal', 'OLQs', 'TFC Vision', 'Chat Memory', 'Prince'];
+  const polaroidTags = ['All', 'Anvii', 'Journal', 'OLQs', 'TFC Vision', 'Chat Memory', 'Prince'];
   const filteredPolaroids = polaroids.filter(p => polaroidFilter === 'All' || p.tag === polaroidFilter);
 
   const handlePrevLightbox = (e?: React.MouseEvent) => {
@@ -1025,6 +1025,7 @@ export const MomentsAndObservations: React.FC<MomentsAndObservationsProps> = ({ 
                       onChange={(e) => setNewTag(e.target.value as any)}
                       className="w-full bg-[#181824] border border-white/10 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-orange-400"
                     >
+                      <option value="Anvii">Anvii</option>
                       <option value="Journal">Journal</option>
                       <option value="OLQs">OLQs</option>
                       <option value="TFC Vision">TFC Vision</option>

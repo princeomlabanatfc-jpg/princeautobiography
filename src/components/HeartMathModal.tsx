@@ -6,6 +6,7 @@ import {
 } from 'lucide-react';
 
 import imgPrincePhoto from '../assets/images/princephoto.jpeg';
+import imgAnviiPhoto from '../assets/images/Anvii_pink_saree.jpg';
 
 interface HeartMathModalProps {
   isOpen: boolean;
@@ -466,8 +467,8 @@ export const HeartMathModal: React.FC<HeartMathModalProps> = ({ isOpen, onClose 
 
         {/* Floating Side Badges */}
         <div className="absolute top-20 left-6 z-30 hidden lg:flex flex-col items-center gap-2 bg-black/40 p-2.5 rounded-2xl border border-white/10 backdrop-blur-md shadow-2xl">
-          <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-pink-400 p-0.5 bg-gradient-to-br from-pink-500/20 to-purple-600/30 flex items-center justify-center">
-            <Heart className="w-5 h-5 text-pink-300 fill-pink-400/40" />
+          <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-pink-400 p-0.5 bg-black">
+            <img src={imgAnviiPhoto} alt="Anvii (Pink Saree)" className="w-full h-full object-cover rounded-full" />
           </div>
           <span className="text-[10px] font-bold text-pink-300 tracking-wider">ANVII</span>
         </div>
